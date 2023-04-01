@@ -88,3 +88,34 @@ Nesta aula a alteração que deve ser feita é na importação do TabViewModule 
 <pre>
 import { TabViewModule } from 'primeng/tabview';
 </pre>
+
+
+# Ajuste de layout para o PrimeFlex 3 e atualização para o Angular 14
+
+## Importação de módulos do PrimeNG 14
+
+Os componentes no PrimeNG 14 são configurados como módulos. Uma vez que o PrimeNG está instalado e configurado, módulos e APIs podem ser importados com o padrão de path primeng/{module}. A documentação de cada componente apresenta a sua respectiva importação.
+
+Segue exemplo da documentação do PrimeNG 14:
+
+<pre>
+// accordion and accordion tab
+import { AccordionModule } from 'primeng/accordion'; 
+
+// api
+import { MenuItem } from 'primeng/api';
+</pre>
+
+Nesta aula as alterações que devem ser feitas no AppModule são as seguintes:
+
+<pre>
+import { InputTextModule } from 'primeng/inputtext';
+import { ButtonModule } from 'primeng/button';
+</pre>
+
+## Classes CSS do PrimeNG 14 e do PrimeFlex V3
+
+Algumas classes CSS do PrimeNG foram substituídas na versão 14. Anteriormente, por padrão, as classes CSS do PrimeNG tinham o prefixo ui- (ou p- na versão 2 do PrimeFlex), algumas classes agora a não ter prefixo. Além do prefixo são necessárias também algumas alterações em casos específicos, como o da classe ui-g que deve ser substituída pela classe grid.
+
+<a href="https://www.primefaces.org/primeflex/migration
+">Documentação sobre migração para o PrimeFlex V3</a>
