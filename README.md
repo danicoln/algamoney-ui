@@ -119,3 +119,110 @@ Algumas classes CSS do PrimeNG foram substituídas na versão 14. Anteriormente,
 
 <a href="https://www.primefaces.org/primeflex/migration
 ">Documentação sobre migração para o PrimeFlex V3</a>
+
+## Angular CDK
+
+Devido à dependência de outros componentes, será necessário instalar o Angular CDK em nosso projeto:
+
+<pre>
+npm install @angular/cdk@14.1.1 --save
+</pre>
+
+Você verá que a dependência foi instalada com sucesso no seu arquivo package.json:
+
+<pre>
+"dependencies": {
+  //...
+  "@angular/cdk": "^14.1.1",
+  //...
+}
+</pre>
+
+# Componente Table do PrimeNG 14
+
+O PrimeNG 14 não faz mais uso do componente DataTable, tendo sido este substituído na versão 6 pelo componente Table.
+
+## Importação do TableModule
+
+Antes de iniciarmos o desenvolvimento da nossa tabela, precisamos adicionar o módulo correspondente no AppModule.
+
+<pre>
+import { TableModule } from 'primeng/table';
+
+//...
+
+imports: [
+  //...
+  TableModule
+],
+//...
+</pre>
+
+## Implementação da tabela
+
+A utilização do componente Table é bastante simples. O componente também possui a propriedade value, porém a forma de exibição das colunas é diferente.
+
+Ele trabalha com o conceito de templates, onde podemos definir as seções da nossa tabela e também declarar variáveis. No nosso caso teremos dois templates: header e body. Vamos definir no header os nomes das propriedades que estão no AppComponent; no body adicionaremos os valores do nosso array.
+
+<pre>
+<div class="grid">
+        <div class="col-12">
+            <p-table [value]="lancamentos">
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th>Pessoa</th>
+                        <th>Descrição</th>
+                        <th class="col-data-header">Vencimento</th>
+                        <th class="col-data-header">Pagamento</th>
+                        <th class="col-valor-header">Valor</th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-lancamento>
+                    <tr>
+                        <td>{{ lancamento.pessoa }}</td>
+                        <td>{{ lancamento.descricao }}</td>
+                        <td class="col-data-content">{{ lancamento.dataVencimento }}</td>
+                        <td class="col-data-content">{{ lancamento.dataPagamento }}</td>
+                        <td class="col-valor-content">{{ lancamento.valor }}</td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </div>
+    </div>
+</pre>
+
+Para declararmos a variável que será resultado da iteração de nosso array usamos a diretiva let-nome-da-variavel, onde o nome-da-variável será o objeto que utilizaremos para acessar os valores de nosso array.
+
+No exemplo acima utilizamos let-lancamento, portanto cada item do nosso array lancamentos (atributo à propriedade value) poderá ter seus valores acessados por meio da variável lancamento:
+
+<pre>
+{{ lancamento.pessoa }}
+</pre>
+
+## CSS do Table
+
+Diferente do DataTable, nosso novo componente especifica separadamente as colunas, por cabeçalho e conteúdo. Por esta razão precisaremos alterar o CSS para obtermos o mesmo resultado da aula.
+
+<pre>
+.col-valor-header {
+  width: 120px;
+}
+
+.col-valor-content {
+  text-align: right;
+}
+
+.col-data-header {
+  width: 120px;
+}
+
+.col-data-content {
+  text-align: center;
+}
+</pre>
+
+Perceba que adicionamos regras CSS para os cabeçalhos e para os conteúdos. Dessa forma conseguimos atingir o resultado esperado.
+
+
+
+

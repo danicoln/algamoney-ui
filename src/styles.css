@@ -15,10 +15,22 @@ label {
 
 /* Quando a tela estiver menor que os px definido, entrará
 na regra do escopo*/
-@media (min-width: 1000px){
+@media (min-width: 1200px){
   .container{
 
-    width: 900px;
+    width: 1100px;
     margin: 0 auto;
   }
+}
+
+.col-valor-header, .col-data-header{
+  width: 120px;
+}
+
+.col-data-content{
+  text-align: center;
+}
+
+.col-valor-content{
+  text-align: right;
 }
