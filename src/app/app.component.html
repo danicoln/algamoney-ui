@@ -26,7 +26,7 @@
   <div class="grid">
 <!-- o próprimo p-Table faz a função do ngFor-->
     <div class="col-12">
-      <p-table [value]="lancamentos" styleClass="p-datatable-striped">
+      <p-table [value]="lancamentos" styleClass="p-datatable-striped" [paginator]="true" [rows]="2">
         <ng-template pTemplate="header"> <!--Configura o header da tabela-->
           <tr>
             <th>Pessoa</th>
@@ -34,7 +34,7 @@
             <th class="col-data-header">Vencimento</th>
             <th class="col-data-header">Pagamento</th>
             <th class="col-valor-header"> Valor</th>
-            <th class="col-valor-header"></th>           
+            <th class="col-valor-header"></th>
           </tr>
         </ng-template>
         <ng-template pTemplate="body" let-lancamento>

@@ -223,6 +223,103 @@ Diferente do DataTable, nosso novo componente especifica separadamente as coluna
 
 Perceba que adicionamos regras CSS para os cabeçalhos e para os conteúdos. Dessa forma conseguimos atingir o resultado esperado.
 
+# 10.6 Customizando colunas com ng-template
+## PrimeNG 14
+## Customizando o cabeçalho da tabela
+
+<p>Como vimos anteriormente, o componente Table já trabalha baseado em templates, portanto o trabalho de customizar o cabeçalho ou o próprio conteúdo fica bem mais simples. </p>
+
+<p>Como feito no início da aula, para adicionarmos um botão no cabeçalho da nossa tabela, precisaríamos apenas adicioná-lo dentro da tag th:</p>
+
+<pre>
+  <p-table [value]="lancamentos">
+      <ng-template pTemplate="header">
+        <tr>
+          <!-- ... -->
+          <th class="col-valor-header"> <button pButton label="Teste"></button></th>
+          <!-- ... -->
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-lancamento>
+        <tr>
+          <!-- ... -->
+        </tr>
+      </ng-template>
+    </p-table>
+  </pre>
+
+## CSS da tabela
 
 
+Para aplicar o estilo condicional, também será bem mais fácil, pois já estamos utilizando template. Portanto, já temos o componente do body e temos a variável lancamento.
 
+Neste caso, aplicaremos o estilo condicional da mesma forma, porém direto na tag td.
+
+Claro que é possível também colocarmos uma tag span para o mesmo efeito:
+
+<pre>
+  <td class="col-valor-content" [ngStyle]="{ color: lancamento.tipo === 'DESPESA' ? 'red' : 'blue'}">{{lancamento.valor}}</td>
+
+  <!-- ou... -->
+
+  <td class="col-valor-content" [style.color]="lancamento.tipo === 'DESPESA' ? 'red' : 'blue'">{{lancamento.valor}}</td>
+
+  <!-- ou... -->
+
+  <td class="col-valor-content">
+    <span [style.color]="lancamento.tipo === 'DESPESA' ? 'red' : 'blue'">{{lancamento.valor}} </span>
+  </td>
+</pre>
+
+## Ícones
+
+Na versão mostrada na aula, utilizamos font-awesome para nossos ícones, mas como falamos anteriormente, o PrimeNG agora nos fornece sua própria biblioteca de ícones.
+
+Para usá-la, não muda muita coisa. Precisamos apenas adptar o prefixo fa para pi. Além disso, antes do nome do ícone devemos colocar o prefixo pi de forma isolada:
+
+
+<pre>
+  <code>
+    <td class="col-acoes">
+      <a pButton icon="pi pi-pencil"></a>
+      <button pButton icon="pi pi-trash"></button>
+    </td>
+    </code>
+</pre>
+
+
+É necessário alterar o estilo geral para a classe col-acoes, para que o tamanho fique de acordo com os dois botões colocados na coluna
+
+<pre>
+.col-acoes {
+    width: 120 px
+}
+</pre>
+
+Além disso, os botões do pincel e da lixeira ficam colados um ao outro, devido às configurações padrões do pButton. Para separá-los utilize o seguinte código CSS
+
+<code>
+<pre>
+  .col-acoes > a {
+    margin-right: 5px;
+  }
+</pre>
+</code>
+
+# 10.7 Fazendo paginação de dados
+
+## PrimeNG 14
+
+## Paginação com o componente Table
+
+<p>O Table usa os mesmos atributos para criar um paginador:</p>
+
+<code>
+<pre>
+
+  <p-table [value]="lancamentos" [paginator]="true" [rows]="2">
+  <!-- ... -->
+  </p-table>
+ 
+</pre>
+ </code>
