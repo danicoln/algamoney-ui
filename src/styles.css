@@ -13,6 +13,10 @@ label {
 
 }
 
+.label{
+  margin: 0.5em;
+}
+
 /* Quando a tela estiver menor que os px definido, entrará
 na regra do escopo*/
 @media (min-width: 1200px){
