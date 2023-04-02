@@ -26,7 +26,8 @@
   <div class="grid">
 <!-- o próprimo p-Table faz a função do ngFor-->
     <div class="col-12">
-      <p-table [value]="lancamentos" styleClass="p-datatable-striped" [paginator]="true" [rows]="2">
+      <p-table [value]="lancamentos" styleClass="p-datatable-striped" [paginator]="true" [rows]="4"
+      [responsive]="true">
         <ng-template pTemplate="header"> <!--Configura o header da tabela-->
           <tr>
             <th>Pessoa</th>
@@ -34,17 +35,31 @@
             <th class="col-data-header">Vencimento</th>
             <th class="col-data-header">Pagamento</th>
             <th class="col-valor-header"> Valor</th>
-            <th class="col-valor-header"></th>
+            <th class="col-acoes-header"></th>
           </tr>
         </ng-template>
         <ng-template pTemplate="body" let-lancamento>
           <tr>
-            <td>{{ lancamento.pessoa }}</td>
-            <td>{{ lancamento.descricao }}</td>
-            <td class="col-data-content">{{ lancamento.dataVencimento }}</td>
-            <td class="col-data-content">{{ lancamento.dataPagamento }}</td>
-            <td class="col-valor-content" [style.color]="lancamento.tipo === 'DESPESA' ? 'red' : 'blue'">
-              {{ lancamento.valor }}</td>
+            <td>
+              <span class="p-column-title">Pessoa</span>
+              {{ lancamento.pessoa }}
+            </td>
+            <td><span class="p-column-title">Descrição</span>
+              {{ lancamento.descricao }}
+            </td>
+            <td class="col-data-content">
+              <span class="p-column-title">Vencimento</span>
+              {{ lancamento.dataVencimento }}
+            </td>
+            <td class="col-data-content">
+              <span class="p-column-title">Pagamento</span>
+              {{ lancamento.dataPagamento }}
+            </td>
+            <td class="col-valor-content">
+              <span class="p-column-title">Valor</span>
+              <span  [style.color]="lancamento.tipo === 'DESPESA' ? 'red' : 'blue'">{{ lancamento.valor }}</span>
+
+            </td>
 
               <!--https://primeng.org/icons-->
               <td class="col-acoes">
