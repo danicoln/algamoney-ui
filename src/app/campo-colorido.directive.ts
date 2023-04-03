@@ -1,24 +1,24 @@
-import { Directive, ElementRef, HostListener, Renderer2 } from '@angular/core';
+import { Directive, HostBinding, HostListener } from '@angular/core';
 
 @Directive({
   selector: '[appCampoColorido]'
 })
 export class CampoColoridoDirective {
 
-  constructor(
-    private elementRef: ElementRef,
-    private renderer: Renderer2
-  ) { 
-
-  }
+  /**Vinculando propriedades do hospedeiro
+   * com @ HostBinding
+   * 
+   * É necessário definir um valor inicial
+   */
+  @HostBinding('style.backgroundColor') corDeFundo: string = 'transparent';
+  
 
   @HostListener('focus') aoGanharFoco(){
-    this.renderer.setStyle(this.elementRef.nativeElement, 
-      'background-color', '#f5f8fa')
+    this.corDeFundo = '#f1f8fa';
+    
   }
 
   @HostListener('blur') aoPerderFoco(){
-    this.renderer.setStyle(this.elementRef.nativeElement, 
-      'background-color', 'transparent')
+    this.corDeFundo = 'transparent';
   }
 }
