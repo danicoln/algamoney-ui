@@ -17,6 +17,10 @@ label {
   margin: 0.5em;
 }
 
+..col-acoes-status{
+  margin: 15px;
+}
+
 /* Quando a tela estiver menor que os px definido, entrará
 na regra do escopo*/
 @media (min-width: 1200px){
@@ -29,24 +33,25 @@ na regra do escopo*/
 
 @media (min-width: 40em){
 
-.col-valor-header, .col-data-header, .col-acoes-header{
-  width: 120px;
-}
+  .col-valor-header, .col-data-header, .col-acoes-header
+  .col-th-header .col-cidade-header{
+    width: 120px;
+  }
 
-.col-data-content{
-  text-align: center !important;
-}
+  .col-data-content{
+    text-align: center !important;
+  }
 
-.col-valor-content{
-  text-align: right !important;
-}
+  .col-valor-content{
+    text-align: right !important;
+  }
 
-.col-acoes{
-  width: 90px;
-  text-align: center !important;
-}
+  .col-acoes{
+    width: 90px;
+    text-align: center !important;
+  }
 
-.col-acoes .p-button{
-  margin-right: 3px;
-}
+  .col-acoes, .p-button, .col-acoes-status {
+    margin-right: 3px;
+  }
 }

@@ -1,0 +1,70 @@
+<div class="container">
+  <!--Parte do título, Pessoas-->
+  <div class="grid">
+
+    <div class="col-12">
+      <h1>Pessoas</h1>
+    </div>
+
+    <div class="col-12 p-fluid">
+      <label>Nome</label>
+      <input pInputText type="text">
+    </div>
+
+    <div class="col-12">
+      <p-button type="submit" label="Pesquisar"></p-button>
+    </div>
+
+  </div>
+  <!--Parte da tabela de pessoas-->
+  <div class="grid">
+    <div class="col-12">
+
+      <p-table [value]="lancamentos" styleClass="p-datatable-striped"
+        [paginator]="true" [rows]="5" [responsive]="true">
+        <!--Configura o header da tabela-->
+        <ng-template pTemplate="header">
+          <tr> <!--Linha da tablea (primeira linha = header)-->
+            <th class="col-th-header">Nome</th>
+            <th class="col-cidade-header">Cidade</th>
+            <th class="col-th-header">Estado</th>
+            <th class="col-th-header">Status</th>
+            <th class="col-acoes-header"></th>
+          </tr>
+        </ng-template>
+
+        <ng-template pTemplate="body" let-lancamento>
+          <tr>
+            <td class="col-content">
+              <span class="p-column-title">Nome</span>
+              {{lancamento.nome}}
+            </td>
+            <td>
+              <span class="p-column-title">Cidade</span>
+              {{lancamento.cidade}}
+            </td>
+            <td>
+              <span class="p-column-title">Estado</span>
+              {{lancamento.estado}}
+            </td>
+            <td>
+              <span class="p-column-title">Status</span>
+              {{lancamento.status}}
+            </td>
+            <!--https://primeng.org/icons-->
+            <td class="col-acoes-status">
+              <a pButton icon="pi pi-pencil" pTooltip="Editar" tooltipPosition="top"></a>
+              <button pButton icon="pi pi-trash" pTooltip="Excluir" tooltipPosition="top"></button>
+            </td>
+          </tr>
+
+        </ng-template>
+      </p-table>
+
+      <div class="col-12">
+        <a pButton label="Nova Pessoa"></a>
+      </div>
+
+    </div>
+  </div>
+</div>
