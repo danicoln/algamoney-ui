@@ -6,15 +6,16 @@
     </div>
     <div class="col-12 p-fluid">
       <label>Descrição</label>
-      <input pInputText type="text">
+      <input pInputText type="text"
+      appCampoColorido>
     </div>
 
     <div class="col-12">
       <label style="display: block">Vencimento</label>
-      <input pInputText type="text" style="width: 95px">
+      <input pInputText type="text" style="width: 95px" appCampoColorido>
 
       <label class="label">até</label>
-      <input pInputText type="text" style="width: 95px">
+      <input pInputText type="text" style="width: 95px" appCampoColorido>
     </div>
 
     <div class="col-12">
@@ -49,15 +50,20 @@
             </td>
             <td class="col-data-content">
               <span class="p-column-title">Vencimento</span>
-              {{ lancamento.dataVencimento }}
+              {{ lancamento.dataVencimento | date:'dd/MM/y' }}
             </td>
             <td class="col-data-content">
               <span class="p-column-title">Pagamento</span>
-              {{ lancamento.dataPagamento }}
+              {{ lancamento.dataPagamento | date:'dd/MM/y' }}
             </td>
             <td class="col-valor-content">
               <span class="p-column-title">Valor</span>
-              <span  [style.color]="lancamento.tipo === 'DESPESA' ? 'red' : 'blue'">{{ lancamento.valor | number }}</span>
+              <span  [style.color]="lancamento.tipo === 'DESPESA' ? 'red' : 'blue'">
+                
+                <!-- {{ lancamento.valor | number: '1.2-2' }}-->
+
+                {{ lancamento.valor | currency:'BRL':true:'1.2-2' }}
+              </span>
 
             </td>
 
