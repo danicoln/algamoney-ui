@@ -1,0 +1,8 @@
+.status a{
+    color: #222222;
+    text-decoration: none;
+}
+
+.status a:hover{
+    color: #616b8b;
+}

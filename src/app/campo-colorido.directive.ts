@@ -1,9 +1,12 @@
-import { Directive, HostBinding, HostListener } from '@angular/core';
+import { Directive, HostBinding, HostListener, Input } from '@angular/core';
 
 @Directive({
   selector: '[appCampoColorido]'
 })
 export class CampoColoridoDirective {
+
+
+  @Input() cor = '#f1f8fa';
 
   /**Vinculando propriedades do hospedeiro
    * com @ HostBinding
@@ -14,7 +17,7 @@ export class CampoColoridoDirective {
   
 
   @HostListener('focus') aoGanharFoco(){
-    this.corDeFundo = '#f1f8fa';
+    this.corDeFundo = this.cor;
     
   }
 
