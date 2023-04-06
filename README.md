@@ -353,3 +353,14 @@ Além disso, os botões do pincel e da lixeira ficam colados um ao outro, devido
 # SelectButton
 
 <p>Acesse a documentação <a href="https://primeng.org/selectbutton">aqui</a></p>
+
+
+# Dropdown
+
+<p>Acesse a documentação <a href="https://primeng.org/dropdown">aqui</a></p>
+
+
+## Componente Dropdown
+<p>A propriedade <strong>autoWidth</strong> foi removida a partir da versão 12 do PrimeNG. Como não há mudanças no que foi proposto na aula, basta remover a propriedade do nosso código.</p>
+
+<p>Outro ponto que não é mais necessário é a regra CSS para o filtro do nosso dropdown, pois este componente já vem por padrão com largura de 100%.</p>
