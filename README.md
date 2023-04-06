@@ -323,3 +323,20 @@ Além disso, os botões do pincel e da lixeira ficam colados um ao outro, devido
  
 </pre>
  </code>
+
+ # CSS
+
+ <p>É necessário adicionar uma regra CSS para configurar a margem direita dos botões e links do PrimeNG:</p>
+
+ <pre>
+  .p-button {
+    margin-right: .25em
+  }
+ </pre>
+
+ ## As classes <strong>ui-md-x</strong>
+
+ <p>A partir da versão 3 do Prime Flex, não é mais utilizado, conforme mostrado na aula, os prefixos <strong>ui-md-</strong> para trabalhar com a responsividade nas páginas HTML.</p>
+ <p>Assim como é demonstrado na documentação, que terá o link posto logo abaixo, os prefixos utilizados passam a ser <strong>md:col-x</strong>, ou, para telas grandes, <strong>lg:col-x</strong>, onde o x deve ser trocado pela quantidade de colunas que deseja colocar (de 1 até 12). Existe ainda o <strong>xl:col-x</strong> e o <strong>sm:col-x</strong>, para respectivamente telas muito grandes ou pequenas</p>
+
+ <a href="https://www.primefaces.org/primeflex/gridsystem">Documentação do Prime Flex</a>
