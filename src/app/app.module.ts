@@ -18,6 +18,7 @@ import { LancamentoCadastroComponent } from './lancamento-cadastro/lancamento-ca
 import { CalendarModule } from 'primeng/calendar';
 import { SelectButtonModule } from 'primeng/selectbutton';
 import { DropdownModule } from 'primeng/dropdown';
+import { InputNumberModule } from 'primeng/inputnumber';
 
 
 
@@ -40,7 +41,8 @@ import { DropdownModule } from 'primeng/dropdown';
     InputTextareaModule,
     CalendarModule,
     SelectButtonModule,
-    DropdownModule
+    DropdownModule,
+    InputNumberModule
 
 
   ],

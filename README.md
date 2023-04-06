@@ -364,3 +364,27 @@ Além disso, os botões do pincel e da lixeira ficam colados um ao outro, devido
 <p>A propriedade <strong>autoWidth</strong> foi removida a partir da versão 12 do PrimeNG. Como não há mudanças no que foi proposto na aula, basta remover a propriedade do nosso código.</p>
 
 <p>Outro ponto que não é mais necessário é a regra CSS para o filtro do nosso dropdown, pois este componente já vem por padrão com largura de 100%.</p>
+
+# 13.5. Adicionando máscara de dinheiro com ng2-mask-money
+
+## Currency Mask
+
+<p>Não há alterações relativas à implementação do módulo CurrencyMask em relação ao que é mostrado na aula.
+</p>
+
+<p>Para instalar, basta digitar o seguinte comando:</p>
+
+<pre>
+  npm install ng2-currency-mask --save
+</pre>
+
+<p>Não esquecer de fazer o import</p>
+
+
+<p>Eu usei o componente inputNumber</p>
+
+## Componente InputNumber
+
+<p>O PrimeNG 14 possui o componente InputNumber, citado no vídeo. Para utilizá-lo é necessário fazer a importação no AppModule.</p>
+
+<p>A documentação deste componente pode ser acessada em <a href="https://primeng.org/inputnumber">aqui</a></p>
