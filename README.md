@@ -349,3 +349,7 @@ Além disso, os botões do pincel e da lixeira ficam colados um ao outro, devido
 <p>Usei as propriedades <strong>dateFormat</strong> e <strong>[showIcon]</strong></p>
 
 <p>Ver mais na <a href="https://primeng.org/calendar">Documentação do Calendário</a></p>
+
+# SelectButton
+
+<p>Acesse a documentação <a href="https://primeng.org/selectbutton">aqui</a></p>
