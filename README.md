@@ -340,3 +340,12 @@ Além disso, os botões do pincel e da lixeira ficam colados um ao outro, devido
  <p>Assim como é demonstrado na documentação, que terá o link posto logo abaixo, os prefixos utilizados passam a ser <strong>md:col-x</strong>, ou, para telas grandes, <strong>lg:col-x</strong>, onde o x deve ser trocado pela quantidade de colunas que deseja colocar (de 1 até 12). Existe ainda o <strong>xl:col-x</strong> e o <strong>sm:col-x</strong>, para respectivamente telas muito grandes ou pequenas</p>
 
  <a href="https://www.primefaces.org/primeflex/gridsystem">Documentação do Prime Flex</a>
+
+
+# 13.2. Adicionando seletor de data (componente Calendar)
+
+<p>Para o calendar funcionar, foi necessário inserir <strong>BrowserAnimationsModule</strong> no app.module, como feito na video-aula.</p>
+
+<p>Usei as propriedades <strong>dateFormat</strong> e <strong>[showIcon]</strong></p>
+
+<p>Ver mais na <a href="https://primeng.org/calendar">Documentação do Calendário</a></p>
