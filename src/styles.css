@@ -34,7 +34,7 @@ na regra do escopo*/
 @media (min-width: 40em){
 
   .col-valor-header, .col-data-header, .col-acoes-header
-  .col-th-header .col-cidade-header{
+  .col-th-header, .col-cidade-header{
     width: 120px;
   }
 
@@ -51,7 +51,7 @@ na regra do escopo*/
     text-align: center !important;
   }
 
-  .col-acoes, .p-button, .col-acoes-status {
+  .col-acoes, .p-button , .col-acoes-status{
     margin-right: 3px;
   }
 }
