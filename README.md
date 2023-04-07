@@ -472,4 +472,28 @@ Além disso, os botões do pincel e da lixeira ficam colados um ao outro, devido
   </code>
 </pre>
 
-<p></p>
+# 13.9 Criando componente de mensagem de erro de validação
+
+<p>Para a criação do componente de mensagem, além do arquivo de teste spec, não queríamos o arquivo de html e também o css, então foi colocado na linha de comando os seguintes parâmetros:</p>
+
+<pre>
+  <strong>ng</strong> g c message --skip-tests --inline-template --inline-style
+</pre>
+
+<p>Estava com um problema na propriedade <strong>[control]</strong>. Foi resolvido da seguinte forma no html:</p>
+
+<pre>
+  [control]="cidade.control" 
+</pre>
+
+<p>Como a variável control pode estar indefinida em algumas situações, é interessante adaptar o código do componente de mensagem para esse caso:</p>
+
+<pre>
+  @Input() error: string = '';
+  @Input() control?: FormControl;
+  @Input() text: string = '';
+
+  temErro(): boolean {
+    return this.control ? this.control.hasError(this.error) && this.control.dirty : true;
+  }
+</pre>
