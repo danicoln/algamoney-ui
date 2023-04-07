@@ -19,7 +19,7 @@ import { FormControl } from '@angular/forms';
 export class MessageComponent {
 
   @Input() error: string = '';
-  @Input() control?: FormControl;
+  @Input() control?: FormControl = new FormControl();
   @Input() text: string = '';
 
   temErro(): boolean{

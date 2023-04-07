@@ -1,5 +1,5 @@
 <div class="container">
-  <form autocomplete="off">
+  <form autocomplete="off" #lancCadastroForm="ngForm">
 
     <div class="grid">
       <div class="col-12">
@@ -7,14 +7,17 @@
       </div>
 
       <div class="col-12">
-        <p-selectButton [options]="tipos"
+        <p-selectButton name="botoes" ngModel #botoes="ngModel" required="true" [options]="tipos"
         #tipo></p-selectButton>
+        <app-message [control]="botoes.control" error="required" text="Escolha uma opção!"></app-message>
       </div>
 
       <div class="col-6 md:col-3 p-fluid">
         <label>Vencimento</label>
-        <p-calendar dateFormat="dd/mm/yy"
-        [showIcon]="true"></p-calendar>
+        <p-calendar dateFormat="dd/mm/yy" [showIcon]="true" name="vencimento" ngModel #vencimento="ngModel" [required]="true"></p-calendar>
+
+        <app-message [control]="vencimento.control" error="required" text="Informe um vencimento"></app-message>
+
       </div>
 
       <div class="col-6 md:col-3 p-fluid">
@@ -25,24 +28,25 @@
 
       <div class="col-12 md:col-9 p-fluid">
         <label>Descrição</label>
-        <input pInputText type="text" name="descricao"
-        ngModel #descricao="ngModel" required minlength="5">
+        <input pInputText type="text" name="descricao" ngModel #descricao="ngModel" required minlength="5">
 
         <!--componente de mensagem
         [control] que recebe a variável, error que recebe o tipo de erro,
-      text que recebe a mensagem de erro-->
+        text que recebe a mensagem de erro-->
         <app-message [control]="descricao.control" error="required"
         text="Informe uma descrição"></app-message>
 
-        <app-message [control]="descricao.control" error="minlength"
-        text="Mínimo de {{ descricao.errors?.['minlength'].requiredLength }} caracteres."></app-message>
+        <!--a propriedade requiredLength está dando erro no console: Correção: faltava o elvis : ['minlength']?-->
+        <app-message [control]="descricao.control" error="minlength" text="Mínimo de {{ descricao.errors?.['minlength']?.requiredLength }} caracteres."></app-message>
 
       </div>
 
       <div class="col-6 md:col-3 p-fluid">
         <label>Valor</label>
-        <p-inputNumber mode="currency" currency="BRL" placeholder="0,00"></p-inputNumber>
-      </div>
+        <p-inputNumber mode="currency" currency="BRL" placeholder="0,00"
+         name="valor" ngModel #valor="ngModel" [required]="true"></p-inputNumber>
+        <app-message [control]="valor.control" error="required" text="Insira um valor"></app-message>
+        </div>
 
       <div class="col-12 md:col-6 p-fluid">
         <!--interpolação{{categoria.value}} para verificar o valor  -->
@@ -63,7 +67,8 @@
       </div>
 
       <div class="col-12">
-        <button pButton type="submit" label="Salvar"></button>
+        <button pButton type="submit" label="Salvar"
+        [disabled]="!lancCadastroForm.valid"></button>
         <button pButton type="button" label="Novo" class="p-button-info"></button>
         <a href="javascript:;">Voltar para a pesquisa</a>
       </div>
