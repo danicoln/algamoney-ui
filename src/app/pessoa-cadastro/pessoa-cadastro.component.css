@@ -1,0 +1,10 @@
+.p-button{
+  margin-right: .25em;
+}
+
+@media (max-width: 641px){
+  .col-12, .col-9, .col-6, .col-4, .col-3{
+    display: block;
+    width: 100%;
+  }
+}

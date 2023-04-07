@@ -6,3 +6,8 @@
 .status a:hover{
     color: #616b8b;
 }
+
+p-button
+{
+  margin: .25em;
+}

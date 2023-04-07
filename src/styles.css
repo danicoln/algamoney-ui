@@ -51,12 +51,13 @@ na regra do escopo*/
     text-align: right !important;
   }
 
-  .col-acoes{
+  .col-acoes {
     width: 90px;
     text-align: center !important;
+    margin: 3px;
   }
 
-  .col-acoes, .p-button , .col-acoes-status{
+  .col-acoes, p-button , .col-acoes-status{
     margin-right: 3px;
   }
 }
