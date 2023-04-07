@@ -396,3 +396,80 @@ Além disso, os botões do pincel e da lixeira ficam colados um ao outro, devido
 
 <p>Acesse a documentação <a href="https://primeng.org/inputmask"> aqui. </a></p>
 
+# 13.8 Validando controles de formulário com PrimeNG
+
+## Propriedade errors
+
+<p>Como esta propriedade errors pode ser nula, o Typescript reporta um problema na compilação do código. É necessário realizar a seguinte alteração nos pontos em que aparece a propriedade errors.</p>
+
+<pre>
+  descricao.errors?
+</pre>
+
+<p>A colocação da ? indica que essa propriedade é opcional, ou seja, quando ela for nula o interpretador para a execução naquele ponto, sem tentar avaliar as propriedades encadeadas (required e minlength neste exemplo ). Caso não seja nulo as propriedades serão avaliadas.
+</p>
+
+## Propriedade minlength
+<p>Uma outra alteração necessária, é que o Typescript acusará um erro se você tentar acessar a propriedade minlength diretamente. O erro será.</p>
+<pre>
+  Property 'minlength' comes from an index signature, so it must be accessed with ['minlength'].
+</pre>
+
+<p>Isso se dá pelo fato da configuração noPropertyAccessFromIndexSignature estar ligada. Segundo a própria documentação, o objetivo dessa configuração é garantir o uso correto de propriedades dentro de objetos, sinalizando explicitamente que você conhece a propriedade dentro dele.
+</p>
+
+<p>Existem duas opções para resolver o problema. Você pode envolver a propriedade minlength com colchetes antes do requiredLength e actualLength, ou, desligar essa configuração.
+</p>
+
+## Opção 1
+
+<p>Para continuar sem mexer nas configurações, o código deve ficar, respectivamente.</p>
+
+<pre>
+  {{name.errors?.['minlength'].requiredLength}}
+</pre>
+
+<pre>
+  {{name.errors?.['minlength'].actualLength}}
+</pre>
+
+## Opção 2
+<pre>
+  {
+    // Outras configs
+
+  "compilerOptions": {
+    // Outras configs
+
+    "strict": true,
+    "noPropertyAccessFromIndexSignature": false,
+
+    // Outras configs
+  },
+
+  // Outras configs
+}
+</pre>
+
+<p>Se fizer dessa forma, então não será necessário envolver as propriedades com colchetes, ficando exatamente como na aula.
+</p>
+
+<a href="https://www.typescriptlang.org/tsconfig#noPropertyAccessFromIndexSignature"> Documentação da configuração noPropertyAccessFromIndexSignature</a>
+
+## Componente p-message
+<p>É possível implementar a mensagem de erro utilizando o módulo de mensagens do PrimeNG. Para isso, é necessário adicionar o módulo <strong>MessageModule</strong> na aplicação.</p>
+
+<p>O código para utilizar o componente para visualizar as mensagens de erro é o seguinte:</p>
+
+<pre>
+  <code>
+    <span><</span><span>p-message</span> *ngIf="descricao.hasError('required') && descricao.dirty" severity="error" text="Informe uma descrição"<span>></span><span><</span><span>/p-message</span><span>></span>
+  </code>
+</pre>
+<pre>
+  <code>    
+    <span><</span><span>p-message</span> *ngIf="descricao.hasError('minlength') && descricao.dirty" severity="error" text="Mínimo de {{ descricao.errors?.minlength.requiredLength }} caracteres. Você digitou apenas {{ descricao.errors?.minlength.actualLength }}"<span>></span><span><</span><span>/p-message</span><span>></span>
+  </code>
+</pre>
+
+<p></p>
