@@ -388,3 +388,11 @@ Além disso, os botões do pincel e da lixeira ficam colados um ao outro, devido
 <p>O PrimeNG 14 possui o componente InputNumber, citado no vídeo. Para utilizá-lo é necessário fazer a importação no AppModule.</p>
 
 <p>A documentação deste componente pode ser acessada em <a href="https://primeng.org/inputnumber">aqui</a></p>
+
+
+# 13.7. Adicionando campo com máscara (componente InputMask)
+
+<p>Utilizei este componente no desafio anterior 13.6.</p>
+
+<p>Acesse a documentação <a href="https://primeng.org/inputmask"> aqui. </a></p>
+
