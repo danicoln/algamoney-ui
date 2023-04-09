@@ -52,12 +52,12 @@ na regra do escopo*/
   }
 
   .col-acoes {
-    width: 90px;
+    width: 120px;
     text-align: center !important;
     margin: 3px;
   }
 
-  .col-acoes, p-button , .col-acoes-status{
-    margin-right: 3px;
+  .col-acoes > a , .col-acoes-status{
+    margin-right: 4px;
   }
 }
