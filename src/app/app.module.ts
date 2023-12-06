@@ -1,15 +1,18 @@
+import { FormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http'
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppComponent } from './app.component';
-import { LancamentosPesquisaComponent } from './lancamentos-pesquisa/lancamentos-pesquisa.component';
+import { LancamentosPesquisaComponent } from './core/lancamentos/lancamentos-pesquisa/lancamentos-pesquisa.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { PessoasPesquisaComponent } from './pessoas-pesquisa/pessoas-pesquisa.component';
-import { LancamentoCadastroComponent } from './lancamento-cadastro/lancamento-cadastro.component';
+import { LancamentoCadastroComponent } from './core/lancamentos/lancamento-cadastro/lancamento-cadastro.component';
 import { PessoaCadastroComponent } from './pessoa-cadastro/pessoa-cadastro.component';
 import { MessageComponent } from './message/message.component';
-import { LancamentosGridComponent } from './lancamentos-grid/lancamentos-grid.component';
+import { LancamentosGridComponent } from './core/lancamentos/lancamentos-grid/lancamentos-grid.component';
+import { PessoasGridComponent } from './pessoas-grid/pessoas-grid.component';
 
 import { InputTextModule } from 'primeng/inputtext';
 import { ButtonModule } from 'primeng/button';
@@ -21,8 +24,8 @@ import { SelectButtonModule } from 'primeng/selectbutton';
 import { DropdownModule } from 'primeng/dropdown';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { InputMaskModule } from 'primeng/inputmask';
-import { FormsModule } from '@angular/forms';
-import { PessoasGridComponent } from './pessoas-grid/pessoas-grid.component';
+import { LancamentosModule } from './core/lancamentos/lancamentos.module';
+import { LancamentoService } from './core/lancamentos/lancamento.service';
 
 @NgModule({
   declarations: [
@@ -50,10 +53,12 @@ import { PessoasGridComponent } from './pessoas-grid/pessoas-grid.component';
     DropdownModule,
     InputNumberModule,
     InputMaskModule,
-    FormsModule
+    FormsModule,
+    LancamentosModule,
+    HttpClientModule
 
   ],
-  providers: [],
+  providers: [LancamentoService], //precisamos informar nos providers nossos services
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -497,3 +497,6 @@ Além disso, os botões do pincel e da lixeira ficam colados um ao outro, devido
     return this.control ? this.control.hasError(this.error) && this.control.dirty : true;
   }
 </pre>
+
+## 17.2. Criando o serviço de consulta de lançamentos
+
