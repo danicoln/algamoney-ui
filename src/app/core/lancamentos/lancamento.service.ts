@@ -26,7 +26,7 @@ export class LancamentoService implements OnInit{
     .then(response => {
       if(response){
         console.log(response)
-        return response.content;
+        return response; // estava dando erro com response.content
       }else{
         throw new Error('A resposta está vazia.')
       }
