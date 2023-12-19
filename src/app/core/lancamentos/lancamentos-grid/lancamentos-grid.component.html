@@ -1,4 +1,10 @@
-<p-table [value]="lancamentos"  [responsive]="true" styleClass="p-datatable-striped" [paginator]="true" [rows]="4">
+<p-table
+  [value]="lancamentos"
+  [responsive]="true"
+  styleClass="p-datatable-striped"
+  [paginator]="true"
+  [rows]="4"
+  >
   <ng-template pTemplate="header"> <!--Configura o header da tabela-->
     <tr>
       <th>Pessoa</th>
@@ -9,6 +15,7 @@
       <th class="col-acoes-header"></th>
     </tr>
   </ng-template>
+  
   <ng-template pTemplate="body" let-lancamento>
     <tr>
       <td>
