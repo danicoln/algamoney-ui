@@ -11,8 +11,9 @@
         <label>Nome</label>
         <!--Os componentes do PrimeNG, na versão 14.0.0, não aceitam a validação required apenas com a codificação padrão HTML.
           É necessário utilizar a propriedade do próprio componente: [required]="true"-->
-        <input pInputText type="text" name="nomeVariavel" ngModel #nomeVariavel="ngModel" [required]="true" class="p-inputtext-sm" >
+        <input pInputText type="text" name="nomeVariavel" ngModel #nomeVariavel="ngModel" [required]="true" class="p-inputtext-sm" minlength="5" >
         <app-message [control]="nomeVariavel.control" error="required" text="Informe o nome"></app-message>
+        <app-message [control]="nomeVariavel.control" error="minlength" text="Mínimo de {{ nomeVariavel.errors?.['minlength']?.requiredLength }} caracteres."></app-message>
       </div>
 
       <div class="col-9 p-fluid">

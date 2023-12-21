@@ -45,15 +45,30 @@
         </div>
 
       <div class="col-12 md:col-6 p-fluid">
-        <label>Categoria {{categoria.value}}</label>
-        <p-dropdown [options]="categorias"
-        placeholder="Selecione" #categoria></p-dropdown>
+        <label>Categoria {{categoriaHtml.value}}</label>
+        <p-dropdown
+          [options]="categorias"
+          placeholder="Selecione"
+          name="categoriaHtml"
+          ngModel
+          #categoriaHtml="ngModel"
+          [required]="true"
+        ></p-dropdown>
+        <app-message [control]="categoriaHtml.control" error="required" text="Insira um valor"></app-message>
+
       </div>
 
       <div class="col-12 md:col-6 p-fluid">
-        <label>Pessoa {{pessoa.value}}</label>
-        <p-dropdown [options]="pessoas"
-        placeholder="Selecione" [filter]="true" #pessoa></p-dropdown>
+        <label>Pessoa {{ pessoaHtml.value }}</label>
+        <p-dropdown
+          [options]="pessoas"
+          placeholder="Selecione"
+          [filter]="true"
+          name="pessoaHtml"
+          ngModel
+          #pessoaHtml="ngModel"
+          [required]="true"
+        ></p-dropdown>
       </div>
 
       <div class="col-12 p-fluid">
