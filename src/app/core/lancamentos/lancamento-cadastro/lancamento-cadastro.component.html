@@ -30,13 +30,9 @@
         <label>Descrição</label>
         <input pInputText type="text" name="descricao" ngModel #descricao="ngModel" required minlength="5">
 
-        <!--componente de mensagem
-        [control] que recebe a variável, error que recebe o tipo de erro,
-        text que recebe a mensagem de erro-->
         <app-message [control]="descricao.control" error="required"
         text="Informe uma descrição"></app-message>
 
-        <!--a propriedade requiredLength está dando erro no console: Correção: faltava o elvis : ['minlength']?-->
         <app-message [control]="descricao.control" error="minlength" text="Mínimo de {{ descricao.errors?.['minlength']?.requiredLength }} caracteres."></app-message>
 
       </div>
@@ -49,7 +45,6 @@
         </div>
 
       <div class="col-12 md:col-6 p-fluid">
-        <!--interpolação{{categoria.value}} para verificar o valor  -->
         <label>Categoria {{categoria.value}}</label>
         <p-dropdown [options]="categorias"
         placeholder="Selecione" #categoria></p-dropdown>
