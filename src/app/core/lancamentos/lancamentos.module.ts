@@ -1,8 +1,5 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { LancamentosGridComponent } from './lancamentos-grid/lancamentos-grid.component';
-import { LancamentoCadastroComponent } from './lancamento-cadastro/lancamento-cadastro.component';
-import { LancamentosPesquisaComponent } from './lancamentos-pesquisa/lancamentos-pesquisa.component';
 import { FormsModule } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
 import { HttpClientModule } from '@angular/common/http';
@@ -17,7 +14,11 @@ import { TableModule } from 'primeng/table';
 import { InputTextModule } from 'primeng/inputtext';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BrowserModule } from '@angular/platform-browser';
+import { SharedModule } from 'src/app/shared/shared.module';
 
+import { LancamentosGridComponent } from './lancamentos-grid/lancamentos-grid.component';
+import { LancamentoCadastroComponent } from './lancamento-cadastro/lancamento-cadastro.component';
+import { LancamentosPesquisaComponent } from './lancamentos-pesquisa/lancamentos-pesquisa.component';
 
 
 @NgModule({
@@ -43,7 +44,8 @@ import { BrowserModule } from '@angular/platform-browser';
     DropdownModule,
     InputNumberModule,
     InputMaskModule,
-    HttpClientModule
+    HttpClientModule,
+    SharedModule
   ],
   exports: [
     LancamentosPesquisaComponent,
