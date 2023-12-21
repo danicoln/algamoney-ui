@@ -4,24 +4,23 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppComponent } from './app.component';
-import { NavbarComponent } from './navbar/navbar.component';
+import { LancamentosModule } from './lancamentos/lancamentos.module';
+import { PessoasModule } from './pessoas/pessoas.module';
+import { LancamentoService } from './lancamentos/lancamento.service';
+import { CoreModule } from './core/core.module';
 
-import { LancamentosModule } from './core/lancamentos/lancamentos.module';
-import { LancamentoService } from './core/lancamentos/lancamento.service';
-import { PessoasModule } from './core/pessoas/pessoas.module';
 
 @NgModule({
   declarations: [
     AppComponent,
-    NavbarComponent
 
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
-    HttpClientModule,
     LancamentosModule,
-    PessoasModule
+    PessoasModule,
+    CoreModule
 
   ],
   providers: [LancamentoService], //precisamos informar nos providers nossos services

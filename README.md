@@ -26,6 +26,8 @@ Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To u
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
 
+# 10.3. Criando o projeto do curso e instalando o PrimeNG
+
 ## Instalação do PrimeNG
 
 Na versão 14 o PrimeNG não faz mais uso da biblioteca font-awesome. Foi criada uma biblioteca própria do PrimeNG para substituí-la, que é a PrimeIcons. Outra mudança foi a criação da biblioteca PrimeFlex, necessária para o uso do grid system do PrimeNG.
@@ -497,6 +499,18 @@ Além disso, os botões do pincel e da lixeira ficam colados um ao outro, devido
     return this.control ? this.control.hasError(this.error) && this.control.dirty : true;
   }
 </pre>
+
+
+## 14.10. O que é Core Module?
+
+No AppModule, temos o NavbarComponent e AppComponent.
+
+O NavbarComponent não faz parte de um módulo de funcionalidade, ou seja, um FeatureModule, e nem de um SharedModule, não é compartilhado entre os modulos. 
+
+O NavbarComponent é usado apenas no AppComponent. Então, elementos que são usados apenas no módulo raíz da aplicação, devem ser usados em um módulo CoreModule. 
+
+CoreModule acomoda elementos usados apenas pelo AppModule, como se fosse uma extensão do AppModule. Assim, o AppModule fica mais limpo.
+
 
 ## 17.2. Criando o serviço de consulta de lançamentos
 
