@@ -1,5 +1,5 @@
 <p-table
-  [value]="lancamentos"
+  [value]="lancamentos.content"
   [responsive]="true"
   styleClass="p-datatable-striped"
   [paginator]="true"
@@ -15,13 +15,13 @@
       <th class="col-acoes-header"></th>
     </tr>
   </ng-template>
-  
+
   <ng-template pTemplate="body" let-lancamento>
     <tr>
       <td>
          <!-- Foi adicionado a classe CSS "p-column-title". Pois será exibido nos dispositivos de menor resolução-->
         <span class="p-column-title">Pessoa</span>
-        {{ lancamento.pessoa }}
+        {{ lancamento.pessoa.nome }}
       </td>
       <td><span class="p-column-title">Descrição</span>
         {{ lancamento.descricao }}
