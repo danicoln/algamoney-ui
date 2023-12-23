@@ -20,7 +20,6 @@ import { SharedModule } from 'src/app/shared/shared.module';
 import { LancamentoCadastroComponent } from './lancamento-cadastro/lancamento-cadastro.component';
 import { LancamentosPesquisaComponent } from './lancamentos-pesquisa/lancamentos-pesquisa.component';
 
-registerLocaleData(localePt, 'pt-BR')
 
 @NgModule({
   declarations: [

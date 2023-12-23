@@ -8,15 +8,7 @@ import { LancamentoFiltro, LancamentoService } from '../lancamento.service';
 })
 export class LancamentosPesquisaComponent implements OnInit{
 
-  /**O Typescript exige que as variáveis sejam declaradas e inicializadas.
-   *  Entretanto, para datas não é possível inicializar com valor null,
-   * pois o tipo Date não permite isso.
-   * Sendo assim, é necessário declarar a variável como opcionais
-   */
-  dataVencimentoInicio?: Date;
-  dataVencimentoFim?: Date;
-
-  descricao: string = '';
+  filtro = new LancamentoFiltro();
   lancamentos: any = [];
 
   constructor(private lancamentoService: LancamentoService){}
@@ -27,15 +19,9 @@ export class LancamentosPesquisaComponent implements OnInit{
   }
 
   pesquisar() {
-    const filtro : LancamentoFiltro = {
-      descricao: this.descricao,
-      dataVencimentoInicio: this.dataVencimentoInicio,
-      dataVencimentoFim: this.dataVencimentoFim
-    };
-
-    this.lancamentoService.pesquisar(filtro)
-    .then( lancamentos => {
-      this.lancamentos = lancamentos;
+    this.lancamentoService.pesquisar(this.filtro)
+    .then( resultado => {
+      this.lancamentos = resultado.lancamentos;
     });
   }
 }
