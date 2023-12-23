@@ -1,5 +1,6 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import  localePt  from '@angular/common/locales/pt';
+import { LOCALE_ID, NgModule } from '@angular/core';
+import { CommonModule, DatePipe, registerLocaleData } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
 import { HttpClientModule } from '@angular/common/http';
@@ -19,6 +20,7 @@ import { SharedModule } from 'src/app/shared/shared.module';
 import { LancamentoCadastroComponent } from './lancamento-cadastro/lancamento-cadastro.component';
 import { LancamentosPesquisaComponent } from './lancamentos-pesquisa/lancamentos-pesquisa.component';
 
+registerLocaleData(localePt, 'pt-BR')
 
 @NgModule({
   declarations: [
@@ -48,6 +50,11 @@ import { LancamentosPesquisaComponent } from './lancamentos-pesquisa/lancamentos
   exports: [
     LancamentosPesquisaComponent,
     LancamentoCadastroComponent,
+  ],
+  providers: [
+    DatePipe,
+    {provide: localePt, useValue: 'pt-BR'}
   ]
+
 })
 export class LancamentosModule { }
