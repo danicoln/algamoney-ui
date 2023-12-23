@@ -16,7 +16,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BrowserModule } from '@angular/platform-browser';
 import { SharedModule } from 'src/app/shared/shared.module';
 
-import { LancamentosGridComponent } from './lancamentos-grid/lancamentos-grid.component';
 import { LancamentoCadastroComponent } from './lancamento-cadastro/lancamento-cadastro.component';
 import { LancamentosPesquisaComponent } from './lancamentos-pesquisa/lancamentos-pesquisa.component';
 
@@ -25,7 +24,6 @@ import { LancamentosPesquisaComponent } from './lancamentos-pesquisa/lancamentos
   declarations: [
     LancamentosPesquisaComponent,
     LancamentoCadastroComponent,
-    LancamentosGridComponent //Usamos o grid apenas dentro de pesquisa, não sendo necessário então importá-lo
 
 
   ],
@@ -50,7 +48,6 @@ import { LancamentosPesquisaComponent } from './lancamentos-pesquisa/lancamentos
   exports: [
     LancamentosPesquisaComponent,
     LancamentoCadastroComponent,
-    LancamentosGridComponent
   ]
 })
 export class LancamentosModule { }
