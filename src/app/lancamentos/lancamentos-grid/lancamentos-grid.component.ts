@@ -8,7 +8,7 @@ import { Component, Input } from '@angular/core';
 export class LancamentosGridComponent {
 
   /**Precisa declarar as listas que compõem a tabela */
-  @Input() lancamentos: any[] = [];
-  @Input() pessoas: any[] = [];
+  @Input() lancamentos: any = [];
+  @Input() pessoas: any = [];
 
 }
