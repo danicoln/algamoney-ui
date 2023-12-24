@@ -11,18 +11,18 @@
         <input pInputText type="text"
           appCampoColorido
           name="descricao"
-          [(ngModel)]="descricao">
+          [(ngModel)]="filtro.descricao">
       </div>
 
       <div class="col-12">
         <label style="display: block">Vencimento</label>
         <!--Substituímos o input pelo Calendar-->
         <p-calendar dateFormat="dd/mm/yy" [inputStyle]="{width: '100px'}"
-          name="vencimentoInicio" [(ngModel)]="dataVencimentoInicio"></p-calendar>
+          name="vencimentoInicio" [(ngModel)]="filtro.dataVencimentoInicio"></p-calendar>
 
         <label class="label">até</label>
         <p-calendar dateFormat="dd/mm/yy" [inputStyle]="{width: '100px'}"
-        name="vencimentoFim" [(ngModel)]="dataVencimentoFim"></p-calendar>      </div>
+        name="vencimentoFim" [(ngModel)]="filtro.dataVencimentoFim"></p-calendar>      </div>
 
       <div class="col-12">
         <p-button type="submit" label="Pesquisar"></p-button>
@@ -40,7 +40,7 @@
        [responsive]="true"
        styleClass="p-datatable-striped"
        [paginator]="true"
-       [rows]="4"
+       [rows]="5"
        >
        <ng-template pTemplate="header"> <!--Configura o header da tabela-->
          <tr>
