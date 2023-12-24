@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { LancamentoFiltro, LancamentoService } from '../lancamento.service';
+import { LancamentoService } from '../lancamento.service';
+import { LancamentoFiltro } from './model/lancamentos-filtro';
 import { LazyLoadEvent } from 'primeng/api';
 
 @Component({

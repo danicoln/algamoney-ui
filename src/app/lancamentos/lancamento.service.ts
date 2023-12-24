@@ -1,22 +1,15 @@
 import { DatePipe } from '@angular/common';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable, OnInit } from '@angular/core';
+import { LancamentoFiltro } from './lancamentos-pesquisa/model/lancamentos-filtro';
 
-
-export class LancamentoFiltro {
-  descricao?: string;
-  dataVencimentoInicio?: Date;
-  dataVencimentoFim?: Date;
-  pagina: number = 0;
-  itensPorPagina: number = 5;
-}
 
 @Injectable()
 export class LancamentoService {
 
   filtro = new LancamentoFiltro();
   datePipe?: DatePipe;
-  lancamentosUrl = 'http://localhost:8080/lancamentos'
+  url = 'http://localhost:8080/lancamentos'
 
   constructor( private http: HttpClient, datePipe?: DatePipe) {
     this.datePipe = datePipe; // Foi necessário colocar o datePipe no construtor para que a implementação de data nos filtros funcionasse.
@@ -25,11 +18,14 @@ export class LancamentoService {
   }
 
   pesquisar(filtro: LancamentoFiltro): Promise<any> {
-    const headers = new HttpHeaders().set('Authorization', 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJhdXRoLWFwaSIsInN1YiI6ImFkbWluQGFsZ2Ftb25leS5jb20iLCJleHAiOjE3MDM0MzAyMjJ9.qJ6T6TltgPXMSGd2pV9U9g8rGmonT2LIcMqysiGp47U');
+    const headers = new HttpHeaders().set('Authorization', 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJhdXRoLWFwaSIsInN1YiI6ImFkbWluQGFsZ2Ftb25leS5jb20iLCJleHAiOjE3MDM0NDMxNDZ9.UFmCiqGkKGjjWa2YR8LNSI3mMwIW7GEFZzn5e06KXhA');
     let parametros = new HttpParams();
 
-    parametros.set('page', filtro.pagina.toString());
-    parametros.set('size', filtro.itensPorPagina.toString());
+    parametros = parametros.set('page', filtro.pagina.toString());
+    parametros = parametros.set('size', filtro.itensPorPagina.toString());
+
+    console.log(filtro.pagina);
+    console.log(filtro.itensPorPagina);
 
     if(filtro.descricao){
       parametros = parametros.set('descricao', filtro.descricao);
@@ -46,7 +42,7 @@ export class LancamentoService {
         this.datePipe?.transform(filtro.dataVencimentoFim.toUTCString(), 'yyyy-MM-dd')!);
     }
 
-    return this.http.get(`${this.lancamentosUrl}?resumo`,
+    return this.http.get(`${this.url}?resumo`,
     { headers, params: parametros})
       .toPromise()
       .then((response: any) => {
