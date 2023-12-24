@@ -514,3 +514,10 @@ CoreModule acomoda elementos usados apenas pelo AppModule, como se fosse uma ext
 
 ## 17.2. Criando o serviço de consulta de lançamentos
 
+
+## 17.5. Implementando a paginação no serviço de lançamentos
+
+No HTML de lancamentos-pesquisa, alterei o row para 5, igual o que está no codigo da aula. 
+
+Ao analisar o Network no console do navegador na linha: 
+"lancamentos?resumo", em Headers, a Request URL não esta vindo os parâmentros de paginação igual na video aula.

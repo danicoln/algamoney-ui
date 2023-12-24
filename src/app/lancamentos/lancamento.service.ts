@@ -2,16 +2,13 @@ import { DatePipe } from '@angular/common';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable, OnInit } from '@angular/core';
 
-/**Criamos uma interface para definir um contrato
- * Desta forma, evitamos de cometer algum erro no momento
- * de usar o método pesquisar do service
- */
+
 export class LancamentoFiltro {
   descricao?: string;
   dataVencimentoInicio?: Date;
   dataVencimentoFim?: Date;
-  pagina = 0;
-  itensPorPagina = 5;
+  pagina: number = 0;
+  itensPorPagina: number = 5;
 }
 
 @Injectable()
@@ -24,15 +21,15 @@ export class LancamentoService {
   constructor( private http: HttpClient, datePipe?: DatePipe) {
     this.datePipe = datePipe; // Foi necessário colocar o datePipe no construtor para que a implementação de data nos filtros funcionasse.
     //cria um filtro padrão
-    this.pesquisar(this.filtro);
+
   }
 
   pesquisar(filtro: LancamentoFiltro): Promise<any> {
-    const headers = new HttpHeaders().set('Authorization', 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJhdXRoLWFwaSIsInN1YiI6ImFkbWluQGFsZ2Ftb25leS5jb20iLCJleHAiOjE3MDMzNzAzOTB9.TIDUbczAj7DlOGlzYUE9jcIou_xHcfSpXUkicM57_6s');
+    const headers = new HttpHeaders().set('Authorization', 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJhdXRoLWFwaSIsInN1YiI6ImFkbWluQGFsZ2Ftb25leS5jb20iLCJleHAiOjE3MDM0MzAyMjJ9.qJ6T6TltgPXMSGd2pV9U9g8rGmonT2LIcMqysiGp47U');
     let parametros = new HttpParams();
 
-    parametros.set('page', filtro.pagina);
-    parametros.set('size', filtro.itensPorPagina);
+    parametros.set('page', filtro.pagina.toString());
+    parametros.set('size', filtro.itensPorPagina.toString());
 
     if(filtro.descricao){
       parametros = parametros.set('descricao', filtro.descricao);
@@ -52,29 +49,26 @@ export class LancamentoService {
     return this.http.get(`${this.lancamentosUrl}?resumo`,
     { headers, params: parametros})
       .toPromise()
+      .then((response: any) => {
 
-      .then((response : any ) => {
-     const respJson = response;
-     const lancamentos = respJson.content;
+        console.log('Resposta:' , response);
+        console.log('Total de Elementos: ' , response.totalElements);
 
-     const resultado = {
-      lancamentos,
-      total: response.content.totalElements
-    };
-    return resultado;
+        //const respJson = response;
+        const lancamentos = response;
 
-      /** aula do thiago
-       .then((response : any) => {
-         if (response) {
-           return response;
-         } else {
-           throw new Error('A resposta está vazia.');
-          }
-          *
-         *
-         *
-         */
+        const resultado = {
+         lancamentos,
+         total: response.totalElements
+
+       };
+
+       console.log(resultado)
+
+       return resultado.lancamentos;
+
       });
 
+
+    }
   }
-}
