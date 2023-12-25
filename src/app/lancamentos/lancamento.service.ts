@@ -11,60 +11,47 @@ export class LancamentoService {
   datePipe?: DatePipe;
   url = 'http://localhost:8080/lancamentos'
 
-  constructor( private http: HttpClient, datePipe?: DatePipe) {
+  constructor(private http: HttpClient, datePipe?: DatePipe) {
     this.datePipe = datePipe; // Foi necessário colocar o datePipe no construtor para que a implementação de data nos filtros funcionasse.
     //cria um filtro padrão
 
   }
 
   pesquisar(filtro: LancamentoFiltro): Promise<any> {
-    const headers = new HttpHeaders().set('Authorization', 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJhdXRoLWFwaSIsInN1YiI6ImFkbWluQGFsZ2Ftb25leS5jb20iLCJleHAiOjE3MDM0NDMxNDZ9.UFmCiqGkKGjjWa2YR8LNSI3mMwIW7GEFZzn5e06KXhA');
+    const headers = new HttpHeaders().set('Authorization', 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJhdXRoLWFwaSIsInN1YiI6ImFkbWluQGFsZ2Ftb25leS5jb20iLCJleHAiOjE3MDM1MTc4Mzd9.bUtqS8tT7CLVs4229EtPnCLxVuJBXOUjGGI8v_wO21s');
     let parametros = new HttpParams();
 
-    parametros = parametros.set('page', filtro.pagina.toString());
-    parametros = parametros.set('size', filtro.itensPorPagina.toString());
+    parametros = parametros.set('page', filtro.pagina);
+    parametros = parametros.set('size', filtro.itensPorPagina);
 
-    console.log(filtro.pagina);
-    console.log(filtro.itensPorPagina);
-
-    if(filtro.descricao){
+    if (filtro.descricao) {
       parametros = parametros.set('descricao', filtro.descricao);
     }
-    if(filtro.dataVencimentoInicio){
+    if (filtro.dataVencimentoInicio) {
       parametros = parametros.set(
         'dataVencimentoDe',
         this.datePipe?.transform(filtro.dataVencimentoInicio.toUTCString(), 'yyyy-MM-dd')!);
 
     }
-    if(filtro.dataVencimentoFim){
+    if (filtro.dataVencimentoFim) {
       parametros = parametros.set(
         'dataVencimentoAte',
         this.datePipe?.transform(filtro.dataVencimentoFim.toUTCString(), 'yyyy-MM-dd')!);
     }
 
-    return this.http.get(`${this.url}?resumo`,
-    { headers, params: parametros})
+    return this.http.get<any>(`${this.url}?resumo`,
+      { headers, params: parametros })
       .toPromise()
       .then((response: any) => {
-
-        console.log('Resposta:' , response);
-        console.log('Total de Elementos: ' , response.totalElements);
-
-        //const respJson = response;
-        const lancamentos = response;
+        const respJson = response;
+        const dadosLancamentos = respJson.content;
 
         const resultado = {
-         lancamentos,
-         total: response.totalElements
-
-       };
-
-       console.log(resultado)
-
-       return resultado.lancamentos;
-
+          dadosLancamentos,
+          total: response.totalElements
+        }
+        return resultado;
       });
 
-
-    }
   }
+}
