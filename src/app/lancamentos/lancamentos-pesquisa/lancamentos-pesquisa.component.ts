@@ -8,17 +8,17 @@ import { LazyLoadEvent } from 'primeng/api';
   templateUrl: './lancamentos-pesquisa.component.html',
   styleUrls: ['./lancamentos-pesquisa.component.css']
 })
-export class LancamentosPesquisaComponent implements OnInit{
+export class LancamentosPesquisaComponent implements OnInit {
 
   totalRegistros = 0;
   filtro = new LancamentoFiltro();
   lancamentos: any = [];
 
-  constructor(private lancamentoService: LancamentoService){}
+  constructor(private lancamentoService: LancamentoService) { }
 
 
-  ngOnInit(){
-      //this.pesquisar(); //ao comentar aqui, não aparece os dados da tabela
+  ngOnInit() {
+    //this.pesquisar(); //Quando o componente Lazy é iniciado, o onLazyLoad é chamado automaticamente, não sendo necessário entao chamar o pesquisar() no ngOnInit()
   }
 
   pesquisar(pagina = 0) {
@@ -26,21 +26,22 @@ export class LancamentosPesquisaComponent implements OnInit{
     this.filtro.pagina = pagina;
 
     this.lancamentoService.pesquisar(this.filtro)
-    .then( resultado => {
-      this.totalRegistros = resultado.total;
-      this.lancamentos = resultado;
-    });
+      .then(resultado => {
+        this.totalRegistros = resultado.total;
+        this.lancamentos = resultado;
+      });
   }
 
-  aoMudarPagina(evento: LazyLoadEvent){
-    console.log(evento);
-    if (evento.first !== undefined && evento.rows !== undefined) {
+  aoMudarPagina(evento: LazyLoadEvent): void {
+    let pagina = 0;
 
-      const pagina = evento.first / evento.rows;
-      this.pesquisar(pagina);
+    if (evento.first && evento.rows) {
+      //pagina = evento.first / evento.rows;
+      pagina = Math.floor((evento.first ?? 0) / (evento.rows ?? 1))
+    }
+    this.pesquisar(pagina);
 
-      console.log(pagina)
-  }
-
+    console.log('Evento:', evento);
+    console.log('Número da Página', pagina)
   }
 }

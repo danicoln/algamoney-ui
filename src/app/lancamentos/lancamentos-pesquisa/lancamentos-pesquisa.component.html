@@ -34,7 +34,7 @@
 
     <div class="col-12">
       <p-table
-        [value]="lancamentos.content"
+        [value]="lancamentos.dadosLancamentos"
         [responsive]="true"
         emptyMessage="Nenhum lançamento encontrado"
         styleClass="p-datatable-striped"
@@ -43,6 +43,7 @@
         [lazy]="true"
         [totalRecords]="totalRegistros"
         (onLazyLoad)="aoMudarPagina($event)"
+        [showCurrentPageReport]="true"
         >
 
         <ng-template pTemplate="header"> <!--Configura o header da tabela-->
