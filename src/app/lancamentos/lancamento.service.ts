@@ -1,7 +1,7 @@
 import { DatePipe } from '@angular/common';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable, OnInit } from '@angular/core';
-import { LancamentoFiltro } from './lancamentos-pesquisa/model/lancamentos-filtro';
+import { LancamentoFiltro } from './model/lancamentos-filtro';
 
 
 @Injectable()
@@ -27,12 +27,13 @@ export class LancamentoService {
     if (filtro.descricao) {
       parametros = parametros.set('descricao', filtro.descricao);
     }
+    
     if (filtro.dataVencimentoInicio) {
       parametros = parametros.set(
         'dataVencimentoDe',
         this.datePipe?.transform(filtro.dataVencimentoInicio.toUTCString(), 'yyyy-MM-dd')!);
-
     }
+
     if (filtro.dataVencimentoFim) {
       parametros = parametros.set(
         'dataVencimentoAte',
