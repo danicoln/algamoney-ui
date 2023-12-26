@@ -18,7 +18,7 @@ export class LancamentoService {
   }
 
   pesquisar(filtro: LancamentoFiltro): Promise<any> {
-    const headers = new HttpHeaders().set('Authorization', 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJhdXRoLWFwaSIsInN1YiI6ImFkbWluQGFsZ2Ftb25leS5jb20iLCJleHAiOjE3MDM1MTc4Mzd9.bUtqS8tT7CLVs4229EtPnCLxVuJBXOUjGGI8v_wO21s');
+    const headers = new HttpHeaders().set('Authorization', 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJhdXRoLWFwaSIsInN1YiI6ImFkbWluQGFsZ2Ftb25leS5jb20iLCJleHAiOjE3MDM2Mzg1OTV9._S8YwWAorGDcZmx4Hnb0D1DjEsYo4HVIRgQrdfZ3ckM');
     let parametros = new HttpParams();
 
     parametros = parametros.set('page', filtro.pagina);
@@ -27,7 +27,7 @@ export class LancamentoService {
     if (filtro.descricao) {
       parametros = parametros.set('descricao', filtro.descricao);
     }
-    
+
     if (filtro.dataVencimentoInicio) {
       parametros = parametros.set(
         'dataVencimentoDe',
@@ -53,6 +53,21 @@ export class LancamentoService {
         }
         return resultado;
       });
+  }
 
+  excluir(codigo: number): Promise<void>{
+
+    const headers = new HttpHeaders().set('Authorization', 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJhdXRoLWFwaSIsInN1YiI6ImFkbWluQGFsZ2Ftb25leS5jb20iLCJleHAiOjE3MDM2Mzg1OTV9._S8YwWAorGDcZmx4Hnb0D1DjEsYo4HVIRgQrdfZ3ckM');
+
+    return this.http.delete(`${this.url}/${codigo}`,
+    {headers})
+    .toPromise()
+    .then(() => {});
+    /**
+     * o método then(() => {}) é utilizado para garantir
+     * que a Promise resultante tenha um valor de resolução,
+     * mesmo que seja undefined. Isso é feito para
+     * corresponder ao tipo de retorno Promise<void>.
+     */
   }
 }
