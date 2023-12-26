@@ -2,38 +2,86 @@
   <!--Parte do título, Pessoas-->
   <div class="grid">
 
-    <div class="col-12">
-      <h1>Pessoas</h1>
-    </div>
+    <form autocomplete="off" (ngSubmit)="pesquisar()">
+      <div class="col-12">
+        <h1>Pessoas</h1>
+      </div>
 
-    <div class="col-12 p-fluid">
-      <label>Nome</label>
-      <input pInputText type="text" appCampoColorido>
-    </div>
+      <div class="col-12 p-fluid">
+        <label>Nome</label>
+        <input pInputText type="text" appCampoColorido
+        name="nome"
+        [(ngModel)]="filtro.nome"
+        >
+      </div>
 
-    <div class="col-12">
-      <p-button type="submit" label="Pesquisar"></p-button>
-    </div>
+      <div class="col-12">
+        <p-button type="submit" label="Pesquisar"></p-button>
+      </div>
 
+    </form>
   </div>
   <!--Parte da tabela de pessoas-->
   <div class="grid">
     <div class="col-12">
 
-      <!--13.11. Desafio: criando mais componentes-->
+      <p-table
+        [value]="lancamentoPessoas.dadosPessoas"
+        [responsive]="true"
+        styleClass="p-datatable-striped"
+        [paginator]="true"
+        [rows]="filtro.itensPorPagina"
+        [lazy]="true"
+        [totalRecords]="totalRegistros"
+        (onLazyLoad)="aoMudarPagina($event)"
+        [showCurrentPageReport]="true"
+        >
+        <!--Configura o header da tabela-->
+        <ng-template pTemplate="header">
+          <tr> <!--Linha da tablea (primeira linha = header)-->
+            <th class="col-th-header">Nome</th>
+            <th class="col-cidade-header">Cidade</th>
+            <th class="col-th-header">Estado</th>
+            <th class="col-th-header">Status</th>
+            <th class="col-acoes-header"></th>
+          </tr>
+        </ng-template>
 
-      <app-pessoas-grid [lancamentoPessoas]="lancamentos"></app-pessoas-grid>
+        <ng-template pTemplate="body" let-pessoa>
+          <tr>
+            <td class="col-content">
+              <span class="p-column-title">Nome</span>
+              <!--usando pipe (|)-->
+              {{pessoa?.nome | uppercase}}
+            </td>
 
-      <!--
-        O binding [lancamentoPessoas] é o que é declarado em pessoas-grid.component.ts
-        Recebe a propriedade "lancamentos" que é declarada em pessoa-pesquisa.component.ts
-        que são passados os valores no 'p-table' em pessoas-grid.component.html
-      -->
+            <td>
+              <span class="p-column-title">Cidade</span>
+              {{pessoa?.endereco?.cidade}}
+            </td>
+            <td>
+              <span class="p-column-title">Estado</span>
+              {{pessoa?.endereco?.estado}}
+            </td>
+
+            <td class="status">
+              <span class="p-column-title">Status</span>
+              <a href="#">{{pessoa?.ativo ? 'Ativo' : 'Inativo'}}</a>
+            </td>
+            <!--https://primeng.org/icons-->
+            <td class="col-acoes-status">
+              <a pButton icon="pi pi-pencil" pTooltip="Editar" tooltipPosition="top"></a>
+              <p-button icon="pi pi-trash" pTooltip="Excluir" tooltipPosition="top"></p-button>
+            </td>
+          </tr>
+
+        </ng-template>
+      </p-table>
+    </div>
 
       <div class="col-12">
         <a pButton label="Nova Pessoa"></a>
       </div>
 
-    </div>
   </div>
 </div>
