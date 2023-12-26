@@ -23,7 +23,7 @@ import { PessoaService } from './pessoas/pessoas.service';
     LancamentosModule
 
   ],
-  providers: [PessoaService], //precisamos informar nos providers nossos services
+  providers: [LancamentoService, PessoaService], //precisamos informar nos providers nossos services
   bootstrap: [AppComponent]
 })
 export class AppModule { }

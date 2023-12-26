@@ -7,16 +7,14 @@ import { LazyLoadEvent } from 'primeng/api';
   templateUrl: './pessoas-pesquisa.component.html',
   styleUrls: ['./pessoas-pesquisa.component.css']
 })
-export class PessoasPesquisaComponent implements OnInit {
+export class PessoasPesquisaComponent  {
   totalRegistros = 0;
   filtro = new PessoaFiltro();
   lancamentoPessoas: any = [];
 
   constructor(private pessoaService: PessoaService){}
 
-  ngOnInit() {
 
-  }
 
   pesquisar(pagina = 0){
     this.filtro.pagina = pagina;

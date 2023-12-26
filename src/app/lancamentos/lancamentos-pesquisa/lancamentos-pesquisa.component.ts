@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { LancamentoService } from '../lancamento.service';
 import { LancamentoFiltro } from '../model/lancamentos-filtro';
 import { LazyLoadEvent } from 'primeng/api';
@@ -13,6 +13,8 @@ export class LancamentosPesquisaComponent implements OnInit {
   totalRegistros = 0;
   filtro = new LancamentoFiltro();
   lancamentos: any = [];
+
+  @ViewChild('tabela') grid: any;
 
   constructor(private lancamentoService: LancamentoService) { }
 
@@ -43,5 +45,13 @@ export class LancamentosPesquisaComponent implements OnInit {
 
     console.log('Evento:', evento);
     console.log('Número da Página', pagina)
+  }
+
+  excluir(lancamento: any){
+    this.lancamentoService.excluir(lancamento.codigo)
+    .then(() =>{
+      console.log('Excluído!')
+      this.grid.reset(); // este método reinicia a tabela, sendo assim, atualiza a paginação.
+    })
   }
 }

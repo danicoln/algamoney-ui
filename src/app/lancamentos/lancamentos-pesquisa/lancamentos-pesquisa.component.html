@@ -44,6 +44,7 @@
         [totalRecords]="totalRegistros"
         (onLazyLoad)="aoMudarPagina($event)"
         [showCurrentPageReport]="true"
+        #tabela
         >
 
         <ng-template pTemplate="header"> <!--Configura o header da tabela-->
@@ -62,7 +63,7 @@
             <td>
               <!-- Foi adicionado a classe CSS "p-column-title". Pois será exibido nos dispositivos de menor resolução-->
               <span class="p-column-title">Pessoa</span>
-              {{ lancamento.pessoa.nome }}
+              {{ lancamento.pessoa }}
             </td>
             <td><span class="p-column-title">Descrição</span>
               {{ lancamento.descricao }}
@@ -85,15 +86,22 @@
               </span>
 
             </td>
-
-            <!--https://primeng.org/icons-->
             <td class="col-acoes">
               <a pButton icon="pi pi-pencil" pTooltip="Editar" tooltipPosition="top"></a> <!--Adicionando tooltip-->
-              <button pButton icon="pi pi-trash" pTooltip="Excluir" tooltipPosition="top"></button>
+              <button
+                pButton
+                icon="pi pi-trash"
+                pTooltip="Excluir"
+                tooltipPosition="top"
+                (click)="excluir(lancamento)"
+                >
+              </button>
               <!--Adicionando tooltip-->
             </td>
+
           </tr>
         </ng-template>
+        <!--https://primeng.org/icons-->
       </p-table>
     </div>
 
