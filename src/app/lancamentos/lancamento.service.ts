@@ -1,7 +1,7 @@
 import { DatePipe } from '@angular/common';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable, OnInit } from '@angular/core';
-import { LancamentoFiltro } from './model/lancamentos-filtro';
+import { LancamentoFiltro } from './lancamentos-pesquisa/model/lancamentos-filtro';
 
 
 @Injectable()
@@ -18,7 +18,7 @@ export class LancamentoService {
   }
 
   pesquisar(filtro: LancamentoFiltro): Promise<any> {
-    const headers = new HttpHeaders().set('Authorization', 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJhdXRoLWFwaSIsInN1YiI6ImFkbWluQGFsZ2Ftb25leS5jb20iLCJleHAiOjE3MDM2Mzg1OTV9._S8YwWAorGDcZmx4Hnb0D1DjEsYo4HVIRgQrdfZ3ckM');
+    const headers = new HttpHeaders().set('Authorization', 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJhdXRoLWFwaSIsInN1YiI6ImFkbWluQGFsZ2Ftb25leS5jb20iLCJleHAiOjE3MDM2NDcxNjZ9.Dk2clToWgW_Wqh6dDLOBIYGH-stC2JivudL9yhud2es');
     let parametros = new HttpParams();
 
     parametros = parametros.set('page', filtro.pagina);
@@ -57,7 +57,7 @@ export class LancamentoService {
 
   excluir(codigo: number): Promise<void>{
 
-    const headers = new HttpHeaders().set('Authorization', 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJhdXRoLWFwaSIsInN1YiI6ImFkbWluQGFsZ2Ftb25leS5jb20iLCJleHAiOjE3MDM2Mzg1OTV9._S8YwWAorGDcZmx4Hnb0D1DjEsYo4HVIRgQrdfZ3ckM');
+    const headers = new HttpHeaders().set('Authorization', 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJhdXRoLWFwaSIsInN1YiI6ImFkbWluQGFsZ2Ftb25leS5jb20iLCJleHAiOjE3MDM2NDcxNjZ9.Dk2clToWgW_Wqh6dDLOBIYGH-stC2JivudL9yhud2es');
 
     return this.http.delete(`${this.url}/${codigo}`,
     {headers})
@@ -69,5 +69,17 @@ export class LancamentoService {
      * mesmo que seja undefined. Isso é feito para
      * corresponder ao tipo de retorno Promise<void>.
      */
+  }
+
+  /**
+   *
+   */
+  editar(codigo: number): Promise<any>{
+    const headers = new HttpHeaders().set('Authorization', 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJhdXRoLWFwaSIsInN1YiI6ImFkbWluQGFsZ2Ftb25leS5jb20iLCJleHAiOjE3MDM2NDcxNjZ9.Dk2clToWgW_Wqh6dDLOBIYGH-stC2JivudL9yhud2es');
+
+    return this.http.post(`${this.url}/${codigo}`,
+    {headers})
+    .toPromise()
+    .then(() => {});
   }
 }

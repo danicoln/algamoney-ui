@@ -2,6 +2,8 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
+import { ToastModule } from 'primeng/toast';
+
 import { AppComponent } from './app.component';
 import { PessoasModule } from './pessoas/pessoas.module';
 import { LancamentoService } from './lancamentos/lancamento.service';
@@ -23,7 +25,10 @@ import { PessoaService } from './pessoas/pessoas.service';
     LancamentosModule
 
   ],
-  providers: [LancamentoService, PessoaService], //precisamos informar nos providers nossos services
+  providers: [
+    LancamentoService,
+    PessoaService
+  ], //precisamos informar nos providers nossos services
   bootstrap: [AppComponent]
 })
 export class AppModule { }

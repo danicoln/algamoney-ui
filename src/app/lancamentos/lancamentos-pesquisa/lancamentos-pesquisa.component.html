@@ -1,4 +1,5 @@
 <div class="container">
+  <p-toast></p-toast>
   <div class="grid">
 
 
@@ -87,15 +88,29 @@
 
             </td>
             <td class="col-acoes">
-              <a pButton icon="pi pi-pencil" pTooltip="Editar" tooltipPosition="top"></a> <!--Adicionando tooltip-->
+
               <button
+                class="p-button-info"
                 pButton
+                icon="pi pi-pencil"
+                pTooltip="Editar"
+                tooltipPosition="top"
+                (click)="editar(lancamento)"
+                >
+              </button> <!--Adicionando tooltip-->
+
+              <button
+                type="button"
+                class="p-button-danger"
+                pButton
+                pRipple
                 icon="pi pi-trash"
                 pTooltip="Excluir"
                 tooltipPosition="top"
                 (click)="excluir(lancamento)"
                 >
               </button>
+
               <!--Adicionando tooltip-->
             </td>
 
