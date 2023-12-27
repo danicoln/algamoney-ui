@@ -1,12 +1,13 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { LancamentoService } from '../lancamento.service';
-import { LancamentoFiltro } from '../model/lancamentos-filtro';
-import { LazyLoadEvent } from 'primeng/api';
+import { LancamentoFiltro } from './model/lancamentos-filtro';
+import { LazyLoadEvent, MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-lancamentos-pesquisa',
   templateUrl: './lancamentos-pesquisa.component.html',
-  styleUrls: ['./lancamentos-pesquisa.component.css']
+  styleUrls: ['./lancamentos-pesquisa.component.css'],
+  providers: [MessageService]
 })
 export class LancamentosPesquisaComponent implements OnInit {
 
@@ -16,7 +17,10 @@ export class LancamentosPesquisaComponent implements OnInit {
 
   @ViewChild('tabela') grid: any;
 
-  constructor(private lancamentoService: LancamentoService) { }
+  constructor(
+    private lancamentoService: LancamentoService,
+    private msgService: MessageService
+  ) { }
 
 
   ngOnInit() {
@@ -47,11 +51,24 @@ export class LancamentosPesquisaComponent implements OnInit {
     console.log('Número da Página', pagina)
   }
 
-  excluir(lancamento: any){
+  excluir(lancamento: any) {
+    this.showDelete(); // o serviço de toasty, precisa vir antes de excluir o item
     this.lancamentoService.excluir(lancamento.codigo)
-    .then(() =>{
-      console.log('Excluído!')
-      this.grid.reset(); // este método reinicia a tabela, sendo assim, atualiza a paginação.
-    })
+      .then(() => {
+        console.log('Excluído!');
+        this.grid.reset(); // este método reinicia a tabela, sendo assim, atualiza a paginação.
+      })
   }
+
+  editar(lancamento: any) {
+    this.showDelete();
+    this.lancamentoService.editar(lancamento)
+      .then(() => {
+      })
+  }
+
+  showDelete() {
+    this.msgService.add({ severity: 'error', summary: 'Error', detail: 'Item Excluído!' });
+  }
+
 }
