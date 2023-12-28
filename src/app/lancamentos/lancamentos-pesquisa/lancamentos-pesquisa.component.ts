@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { LancamentoService } from '../lancamento.service';
 import { LancamentoFiltro } from './model/lancamentos-filtro';
 import { ConfirmationService, LazyLoadEvent, MessageService } from 'primeng/api';
+import { ErrorHandlerService } from 'src/app/core/error-handler.service';
 
 @Component({
   selector: 'app-lancamentos-pesquisa',
@@ -19,6 +20,7 @@ export class LancamentosPesquisaComponent implements OnInit {
 
   constructor(
     private lancamentoService: LancamentoService,
+    private error: ErrorHandlerService,
     private msgService: MessageService,
     private confirmation: ConfirmationService
   ) { }
@@ -36,7 +38,8 @@ export class LancamentosPesquisaComponent implements OnInit {
       .then(resultado => {
         this.totalRegistros = resultado.total;
         this.lancamentos = resultado;
-      });
+      })
+      .catch(erro => this.error.handle(erro));
   }
 
   aoMudarPagina(evento: LazyLoadEvent): void {
@@ -66,9 +69,9 @@ export class LancamentosPesquisaComponent implements OnInit {
     this.showDelete(); // o serviço de toasty, precisa vir antes de excluir o item
     this.lancamentoService.excluir(lancamento.codigo)
       .then(() => {
-        console.log('Excluído!');
         this.grid.reset(); // este método reinicia a tabela, sendo assim, atualiza a paginação.
       })
+      .catch(erro => this.error.handle(erro));
   }
 
   editar(lancamento: any) {
