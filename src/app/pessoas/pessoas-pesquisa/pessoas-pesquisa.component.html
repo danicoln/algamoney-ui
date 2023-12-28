@@ -35,6 +35,7 @@
         [totalRecords]="totalRegistros"
         (onLazyLoad)="aoMudarPagina($event)"
         [showCurrentPageReport]="true"
+        #tabela
         >
         <!--Configura o header da tabela-->
         <ng-template pTemplate="header">
@@ -70,8 +71,21 @@
             </td>
             <!--https://primeng.org/icons-->
             <td class="col-acoes-status">
-              <a pButton icon="pi pi-pencil" pTooltip="Editar" tooltipPosition="top"></a>
-              <p-button icon="pi pi-trash" pTooltip="Excluir" tooltipPosition="top"></p-button>
+              <a
+                pButton
+                icon="pi pi-pencil"
+                pTooltip="Editar"
+                tooltipPosition="top"
+                >
+              </a>
+              <p-button
+                class="p-button-danger"
+                icon="pi pi-trash"
+                pTooltip="Excluir"
+                tooltipPosition="top"
+                (click)="confirmarExclusao(pessoa)"
+                >
+              </p-button>
             </td>
           </tr>
 

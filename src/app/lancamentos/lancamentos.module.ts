@@ -1,4 +1,3 @@
-import  localePt  from '@angular/common/locales/pt';
 import { LOCALE_ID, NgModule } from '@angular/core';
 import { CommonModule, DatePipe, registerLocaleData } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -52,9 +51,6 @@ import { ToastModule } from 'primeng/toast';
   exports: [
     LancamentosPesquisaComponent,
     LancamentoCadastroComponent,
-  ],
-  providers: [
-
   ]
 
 })

@@ -23,9 +23,9 @@ registerLocaleData(localePt);
     BrowserAnimationsModule,
     PessoasModule,
     CoreModule,
-    LancamentosModule,
+    LancamentosModule
   ],
-  
+
   bootstrap: [AppComponent]
 })
 export class AppModule { }
