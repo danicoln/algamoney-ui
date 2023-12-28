@@ -1,3 +1,4 @@
+import localePt from '@angular/common/locales/pt';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -12,7 +13,10 @@ import { CoreModule } from './core/core.module';
 import { LancamentosModule } from './lancamentos/lancamentos.module';
 import { PessoaService } from './pessoas/pessoas.service';
 import { ConfirmationService, MessageService } from 'primeng/api';
+import { DatePipe, registerLocaleData } from '@angular/common';
 
+//registro do pacote locale na classe
+registerLocaleData(localePt);
 
 @NgModule({
   declarations: [
@@ -34,7 +38,9 @@ import { ConfirmationService, MessageService } from 'primeng/api';
     LancamentoService,
     PessoaService,
     MessageService,
-    ConfirmationService
+    ConfirmationService,
+    DatePipe,
+    {provide: localePt, useValue: 'pt-BR'}
   ],
   bootstrap: [AppComponent]
 })
