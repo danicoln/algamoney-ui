@@ -9,7 +9,9 @@ export class LancamentoService {
 
   filtro = new LancamentoFiltro();
   datePipe?: DatePipe;
-  url = 'http://localhost:8080/lancamentos'
+  url = 'http://localhost:8080/lancamentos';
+
+  chave: string = 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJhdXRoLWFwaSIsInN1YiI6ImFkbWluQGFsZ2Ftb25leS5jb20iLCJleHAiOjE3MDM4MDQ2NDd9.0qVQTjawOOY0pYWyAV9oD1vv_21krOPoXtg_rIbeL40';
 
   constructor(private http: HttpClient, datePipe?: DatePipe) {
     this.datePipe = datePipe; // Foi necessário colocar o datePipe no construtor para que a implementação de data nos filtros funcionasse.
@@ -18,7 +20,7 @@ export class LancamentoService {
   }
 
   pesquisar(filtro: LancamentoFiltro): Promise<any> {
-    const headers = new HttpHeaders().set('Authorization', 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJhdXRoLWFwaSIsInN1YiI6ImFkbWluQGFsZ2Ftb25leS5jb20iLCJleHAiOjE3MDM2NDcxNjZ9.Dk2clToWgW_Wqh6dDLOBIYGH-stC2JivudL9yhud2es');
+    const headers = new HttpHeaders().set('Authorization', this.chave);
     let parametros = new HttpParams();
 
     parametros = parametros.set('page', filtro.pagina);
@@ -57,7 +59,7 @@ export class LancamentoService {
 
   excluir(codigo: number): Promise<void>{
 
-    const headers = new HttpHeaders().set('Authorization', 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJhdXRoLWFwaSIsInN1YiI6ImFkbWluQGFsZ2Ftb25leS5jb20iLCJleHAiOjE3MDM2NDcxNjZ9.Dk2clToWgW_Wqh6dDLOBIYGH-stC2JivudL9yhud2es');
+    const headers = new HttpHeaders().set('Authorization', this.chave);
 
     return this.http.delete(`${this.url}/${codigo}`,
     {headers})
@@ -75,7 +77,7 @@ export class LancamentoService {
    *
    */
   editar(codigo: number): Promise<any>{
-    const headers = new HttpHeaders().set('Authorization', 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJhdXRoLWFwaSIsInN1YiI6ImFkbWluQGFsZ2Ftb25leS5jb20iLCJleHAiOjE3MDM2NDcxNjZ9.Dk2clToWgW_Wqh6dDLOBIYGH-stC2JivudL9yhud2es');
+    const headers = new HttpHeaders().set('Authorization', this.chave);
 
     return this.http.post(`${this.url}/${codigo}`,
     {headers})
