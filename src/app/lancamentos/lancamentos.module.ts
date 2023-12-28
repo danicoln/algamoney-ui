@@ -54,8 +54,7 @@ import { ToastModule } from 'primeng/toast';
     LancamentoCadastroComponent,
   ],
   providers: [
-    DatePipe,
-    {provide: localePt, useValue: 'pt-BR'}
+
   ]
 
 })
