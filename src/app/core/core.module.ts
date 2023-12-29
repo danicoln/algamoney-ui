@@ -10,6 +10,7 @@ import { ErrorHandlerService } from './error-handler.service';
 import { NavbarComponent } from './navbar/navbar.component';
 import { LancamentoService } from '../lancamentos/lancamento.service';
 import { PessoaService } from '../pessoas/pessoas.service';
+import { CategoriaService } from '../categorias/categorias.service';
 
 @NgModule({
   declarations: [NavbarComponent],
@@ -23,7 +24,7 @@ import { PessoaService } from '../pessoas/pessoas.service';
     NavbarComponent,
 
     ToastModule,
-    ConfirmDialogModule
+    ConfirmDialogModule,
   ],
   providers:[
     ErrorHandlerService,
@@ -32,7 +33,8 @@ import { PessoaService } from '../pessoas/pessoas.service';
     MessageService,
     ConfirmationService,
     DatePipe,
-    {provide: localePt, useValue: 'pt-BR'}
+    {provide: localePt, useValue: 'pt-BR'},
+    CategoriaService
   ]
 
 })
