@@ -11,7 +11,7 @@ export class PessoaFiltro {
 @Injectable()
 export class PessoaService {
 
-  chave: string = 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJhdXRoLWFwaSIsInN1YiI6ImFkbWluQGFsZ2Ftb25leS5jb20iLCJleHAiOjE3MDM4MTIwMTR9.FMNhfQVuLn4c3zxao8ErzZmH0EW89V4vR_sYJySwh6I';
+  chave: string = 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJhdXRoLWFwaSIsInN1YiI6ImFkbWluQGFsZ2Ftb25leS5jb20iLCJleHAiOjE3MDM4MTU4NDF9.LZ1G1XfL2xO2ZJGyRkM4utdARzOn3oRGSmNbiRGSfHU';
 
   filtro = new PessoaFiltro();
   datePipe?: DatePipe;
@@ -39,6 +39,7 @@ export class PessoaService {
         const respJson = response;
         const dadosPessoas = respJson.content;
 
+        console.log(response.content[0].ativo)
         const resultado = {
           dadosPessoas,
           total: response.totalElements
@@ -55,5 +56,18 @@ export class PessoaService {
     {headers})
     .toPromise()
     .then(() => {});
+  }
+
+  changeStatus(codigo: number, ativo: boolean): Promise<void>{
+
+    let headers = new HttpHeaders().set('Authorization', this.chave);
+
+    headers.append('Content-Type', 'application/json');
+
+    return this.http.put(`${this.url}/${codigo}/ativo`,
+    ativo, {headers})
+    .toPromise()
+    .then(() => {});
+
   }
 }

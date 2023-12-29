@@ -52,7 +52,6 @@
           <tr>
             <td class="col-content">
               <span class="p-column-title">Nome</span>
-              <!--usando pipe (|)-->
               {{pessoa?.nome | uppercase}}
             </td>
 
@@ -67,9 +66,14 @@
 
             <td class="status">
               <span class="p-column-title">Status</span>
-              <a href="#">{{pessoa?.ativo ? 'Ativo' : 'Inativo'}}</a>
+              <a href="#"
+                [pTooltip]="pessoa.ativo ? 'Desativar' : 'Ativar'"
+                tooltipPosition="top"
+                (click)="changeStatus(pessoa)"
+                >{{pessoa?.ativo ? 'Ativo' : 'Inativo'}}
+              </a>
             </td>
-            <!--https://primeng.org/icons-->
+
             <td class="col-acoes-status">
               <a
                 pButton
