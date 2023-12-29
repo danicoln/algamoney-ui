@@ -81,7 +81,7 @@ export class LancamentosPesquisaComponent implements OnInit {
   }
 
   showDelete() {
-    this.msgService.add({ severity: 'error', summary: 'Error', detail: 'Item Excluído!' });
+    this.msgService.add({ severity: 'error', summary: 'Excluído', detail: 'Item Excluído!' });
   }
 
 }

@@ -44,27 +44,42 @@ export class PessoasPesquisaComponent {
 
   }
 
+  changeStatus(pessoa: any): void {
+    const novoStatus = !pessoa.ativo;
+
+    this.pessoaService.changeStatus(pessoa.codigo, novoStatus)
+      .then(() => {
+        const acao = novoStatus ? 'ativada' : 'desativada';
+
+        pessoa.ativo = novoStatus;
+        this.msgService.add({ severity: 'success', summary: 'Sucesso', detail: `Pessoa ${acao} com sucesso!` });
+      })
+      .catch(erro => this.error.handle(erro));
+
+  }
+
+
   excluir(pessoa: any) {
 
     this.pessoaService.excluir(pessoa.codigo)
-    .then(() => {
-      this.grid.reset();
-    })
-    .catch(erro => this.error.handle(erro));
+      .then(() => {
+        this.grid.reset();
+      })
+      .catch(erro => this.error.handle(erro));
 
     this.showDelete();
   }
 
-  confirmarExclusao(pessoa: any){
+  confirmarExclusao(pessoa: any) {
     this.confirmation.confirm({
       message: 'Tem certeza que deseja excluir?',
-      accept: () =>{
+      accept: () => {
         this.excluir(pessoa);
       }
-      });
-    }
+    });
+  }
 
-    showDelete(){
-      this.msgService.add({ severity: 'error', summary: 'Error', detail: 'Item excluído com sucesso!'})
-    }
+  showDelete() {
+    this.msgService.add({ severity: 'error', summary: 'Excluído', detail: 'Item excluído com sucesso!' })
+  }
 }
