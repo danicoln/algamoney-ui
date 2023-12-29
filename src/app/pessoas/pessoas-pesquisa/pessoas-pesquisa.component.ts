@@ -80,6 +80,6 @@ export class PessoasPesquisaComponent {
   }
 
   showDelete() {
-    this.msgService.add({ severity: 'error', summary: 'Error', detail: 'Item excluído com sucesso!' })
+    this.msgService.add({ severity: 'error', summary: 'Excluído', detail: 'Item excluído com sucesso!' })
   }
 }
