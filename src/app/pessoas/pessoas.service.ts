@@ -11,7 +11,7 @@ export class PessoaFiltro {
 @Injectable()
 export class PessoaService {
 
-  chave: string = 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJhdXRoLWFwaSIsInN1YiI6ImFkbWluQGFsZ2Ftb25leS5jb20iLCJleHAiOjE3MDM4MTU4NDF9.LZ1G1XfL2xO2ZJGyRkM4utdARzOn3oRGSmNbiRGSfHU';
+  chave: string = 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJhdXRoLWFwaSIsInN1YiI6ImFkbWluQGFsZ2Ftb25leS5jb20iLCJleHAiOjE3MDM4OTcyMTl9._VmnpRNOViYdIzQFCe36ZII3AA-auHCQwOz9vAqDuHY';
 
   filtro = new PessoaFiltro();
   datePipe?: DatePipe;
@@ -48,26 +48,37 @@ export class PessoaService {
       });
   }
 
-  excluir(codigo: number): Promise<void>{
+  excluir(codigo: number): Promise<void> {
 
     const headers = new HttpHeaders().set('Authorization', this.chave);
 
     return this.http.delete(`${this.url}/${codigo}`,
-    {headers})
-    .toPromise()
-    .then(() => {});
+      { headers })
+      .toPromise()
+      .then(() => { });
   }
 
-  changeStatus(codigo: number, ativo: boolean): Promise<void>{
+  changeStatus(codigo: number, ativo: boolean): Promise<void> {
 
     let headers = new HttpHeaders().set('Authorization', this.chave);
 
     headers.append('Content-Type', 'application/json');
 
     return this.http.put(`${this.url}/${codigo}/ativo`,
-    ativo, {headers})
-    .toPromise()
-    .then(() => {});
+      ativo, { headers })
+      .toPromise()
+      .then(() => { });
 
+  }
+
+  listarPessoas(): Promise<any[]> {
+    const headers = new HttpHeaders().set('Authorization', this.chave);
+
+    return this.http.get(`${this.url}`, { headers })
+      .toPromise()
+      .then((response: any) => {
+        console.log('Pessoas:', response);
+        return response
+      });
   }
 }
