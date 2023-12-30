@@ -25,6 +25,11 @@ export class MessageComponent {
   temErro(): boolean{
     // este método retorna através do control, o erro que é passado como parâmetro
     // e ainda o dirty, pra verificar se o campo está "sujo"
-    return this.control ? this.control.hasError(this.error) && this.control.dirty : true;
+    if(!this.control?.hasError(this.error)){
+      return false;
+    } else if (!this.control?.touched || !this.control?.dirty){
+      return false;
+    }
+    return true;
   }
 }

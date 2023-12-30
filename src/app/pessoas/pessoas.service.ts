@@ -11,7 +11,7 @@ export class PessoaFiltro {
 @Injectable()
 export class PessoaService {
 
-  chave: string = 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJhdXRoLWFwaSIsInN1YiI6ImFkbWluQGFsZ2Ftb25leS5jb20iLCJleHAiOjE3MDM4OTcyMTl9._VmnpRNOViYdIzQFCe36ZII3AA-auHCQwOz9vAqDuHY';
+  chave: string = 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJhdXRoLWFwaSIsInN1YiI6ImFkbWluQGFsZ2Ftb25leS5jb20iLCJleHAiOjE3MDM5NTEzNjV9.-a5ZIHT5RE438H7T-KgoeqpO69KV5RSP7YYIHD25RUo';
 
   filtro = new PessoaFiltro();
   datePipe?: DatePipe;
@@ -39,7 +39,6 @@ export class PessoaService {
         const respJson = response;
         const dadosPessoas = respJson.content;
 
-        console.log(response.content[0].ativo)
         const resultado = {
           dadosPessoas,
           total: response.totalElements
@@ -77,7 +76,6 @@ export class PessoaService {
     return this.http.get(`${this.url}`, { headers })
       .toPromise()
       .then((response: any) => {
-        console.log('Pessoas:', response);
         return response
       });
   }

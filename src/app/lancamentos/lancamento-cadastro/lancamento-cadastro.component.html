@@ -1,33 +1,61 @@
 <div class="container">
-  <form autocomplete="off" #lancCadastroForm="ngForm">
+  <form autocomplete="off" #lancForm="ngForm" (ngSubmit)="salvar(lancForm)">
 
     <div class="grid">
       <div class="col-12">
         <h1>Novo Lançamento</h1>
       </div>
 
-      <div class="col-12">
-        <p-selectButton name="botoes" ngModel #botoes="ngModel" required="true" [options]="tipos"
-        #tipo></p-selectButton>
-        <app-message [control]="botoes.control" error="required" text="Escolha uma opção!"></app-message>
+      <div class="col-12"> <!--Ao inserir o [(ngModel)], os botoes de receita e despesa estão com comportamento estranho-->
+        <p-selectButton
+          name="tipoDeLencamento"
+          [(ngModel)]="lancamento.tipo"
+          required="true"
+          [options]="tipos"
+          #tipoHtml="ngModel"
+          >
+        </p-selectButton>
+        <app-message [control]="tipoHtml.control" error="required" text="Escolha uma opção!"></app-message>
       </div>
 
       <div class="col-6 md:col-3 p-fluid">
         <label>Vencimento</label>
-        <p-calendar dateFormat="dd/mm/yy" [showIcon]="true" name="vencimento" ngModel #vencimento="ngModel" [required]="true"></p-calendar>
+        <p-calendar
+          dateFormat="dd/mm/yy"
+          [showIcon]="true"
+          name="vencimento"
+          #vencimento="ngModel"
+          [required]="true"
+          [(ngModel)]="lancamento.dataVencimento"
+          >
+        </p-calendar>
 
         <app-message [control]="vencimento.control" error="required" text="Informe um vencimento"></app-message>
       </div>
 
       <div class="col-6 md:col-3 p-fluid">
-        <label>{{tipo.value === 'RECEITA' ? 'Recebimento' : 'Pagamento'}}</label>
-        <p-calendar dateFormat="dd/mm/yy"
-        [showIcon]="true"></p-calendar>
+        <label>{{tipoHtml.value === 'RECEITA' ? 'Recebimento' : 'Pagamento'}}</label>
+        <p-calendar
+          dateFormat="dd/mm/yy"
+          [showIcon]="true"
+          [(ngModel)]="lancamento.dataPagamento"
+          name="data"
+          #dataHtml="ngModel"
+          >
+        </p-calendar>
       </div>
 
       <div class="col-12 md:col-9 p-fluid">
         <label>Descrição</label>
-        <input pInputText type="text" name="descricao" ngModel #descricao="ngModel" required minlength="5">
+        <input
+          pInputText
+          type="text"
+          name="descricao"
+          #descricao="ngModel"
+          required
+          minlength="5"
+          [(ngModel)]="lancamento.descricao"
+          >
 
         <app-message [control]="descricao.control" error="required"
         text="Informe uma descrição"></app-message>
@@ -37,8 +65,17 @@
 
       <div class="col-6 md:col-3 p-fluid">
         <label>Valor</label>
-        <p-inputNumber mode="currency" currency="BRL" locale="pt-BR" placeholder="0,00"
-         name="valor" ngModel #valor="ngModel" [required]="true"></p-inputNumber>
+        <p-inputNumber
+          mode="currency"
+          currency="BRL"
+          locale="pt-BR"
+          placeholder="0,00"
+          name="valor"
+          #valor="ngModel"
+          [required]="true"
+          [(ngModel)]="lancamento.valor"
+          >
+          </p-inputNumber>
          <app-message [control]="valor.control" error="required" text="Insira um valor"></app-message>
       </div>
 
@@ -48,34 +85,37 @@
           [options]="categorias"
           placeholder="Selecione"
           name="categoriaHtml"
-          ngModel
           #categoriaHtml="ngModel"
           [required]="true"
-        ></p-dropdown>
+          [(ngModel)]="lancamento.categoria.codigo"
+          >
+        </p-dropdown>
         <app-message [control]="categoriaHtml.control" error="required" text="Insira um valor"></app-message>
       </div>
 
       <div class="col-12 md:col-6 p-fluid">
-        <label>Pessoa {{ pessoaHtml.value }}</label>
+        <label>Pessoa</label>
         <p-dropdown
           [options]="pessoas"
           placeholder="Selecione"
           [filter]="true"
           name="pessoaHtml"
-          ngModel
           #pessoaHtml="ngModel"
           [required]="true"
-        ></p-dropdown>
+          [(ngModel)]="lancamento.pessoa.codigo"
+          >
+        </p-dropdown>
+        <app-message [control]="pessoaHtml.control" error="required" text="Insira uma pessoa"></app-message>
       </div>
 
       <div class="col-12 p-fluid">
         <label>Observação</label>
-        <textarea pInputTextarea rows="3"></textarea>
+        <textarea pInputTextarea rows="3" name="observacao" [(ngModel)]="lancamento.observacao"></textarea>
       </div>
 
       <div class="col-12">
         <button pButton type="submit" label="Salvar"
-        [disabled]="!lancCadastroForm.valid"></button>
+        [disabled]="!lancForm.valid"></button>
         <button pButton type="button" label="Novo" class="p-button-info"></button>
         <a href="javascript:;">Voltar para a pesquisa</a>
       </div>

@@ -7,7 +7,7 @@ import { Injectable } from '@angular/core';
 export class CategoriaService {
 
   url = 'http://localhost:8080/categorias';
-  chave: string = 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJhdXRoLWFwaSIsInN1YiI6ImFkbWluQGFsZ2Ftb25leS5jb20iLCJleHAiOjE3MDM4OTM5NTl9.6IYCrVzCsaa3o1WSJ4AnG61qaIgDAMoII4A0lFeCNkM';
+  chave: string = 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJhdXRoLWFwaSIsInN1YiI6ImFkbWluQGFsZ2Ftb25leS5jb20iLCJleHAiOjE3MDM5NTEzNjV9.-a5ZIHT5RE438H7T-KgoeqpO69KV5RSP7YYIHD25RUo';
 
   constructor(private http: HttpClient) { }
 
@@ -17,7 +17,6 @@ export class CategoriaService {
       return this.http.get(`${this.url}`, { headers })
       .toPromise()
       .then((response: any) => {
-        console.log('Categorias:', response);
 
         return response});
   }
