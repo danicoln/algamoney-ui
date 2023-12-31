@@ -1,5 +1,5 @@
 import localePt from '@angular/common/locales/pt';
-import { NgModule } from '@angular/core';
+import { LOCALE_ID, NgModule } from '@angular/core';
 import { CommonModule, DatePipe, registerLocaleData } from '@angular/common';
 
 import { ToastModule } from 'primeng/toast';
@@ -11,13 +11,19 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { LancamentoService } from '../lancamentos/lancamento.service';
 import { PessoaService } from '../pessoas/pessoas.service';
 import { CategoriaService } from '../categorias/categorias.service';
+import { FormsModule } from '@angular/forms';
+
+registerLocaleData(localePt);
 
 @NgModule({
-  declarations: [NavbarComponent],
+  declarations: [
+    NavbarComponent
+  ],
   imports: [
     CommonModule,
     ToastModule,
-    ConfirmDialogModule
+    ConfirmDialogModule,
+    FormsModule
 
   ],
   exports: [

@@ -8,10 +8,12 @@ import { AppComponent } from './app.component';
 import { PessoasModule } from './pessoas/pessoas.module';
 import { CoreModule } from './core/core.module';
 import { LancamentosModule } from './lancamentos/lancamentos.module';
+import { SharedModule } from './shared/shared.module';
+import { CalendarModule } from 'primeng/calendar';
+import { FormsModule } from '@angular/forms';
 import { registerLocaleData } from '@angular/common';
 
-//registro do pacote locale na classe
-registerLocaleData(localePt);
+
 
 @NgModule({
   declarations: [
@@ -19,11 +21,14 @@ registerLocaleData(localePt);
 
   ],
   imports: [
+    FormsModule,
     BrowserModule,
     BrowserAnimationsModule,
     PessoasModule,
     CoreModule,
-    LancamentosModule
+    SharedModule,
+    LancamentosModule,
+    CalendarModule,
   ],
 
   bootstrap: [AppComponent]

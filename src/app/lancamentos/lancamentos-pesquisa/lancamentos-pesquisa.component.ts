@@ -35,7 +35,7 @@ export class LancamentosPesquisaComponent implements OnInit {
 
     this.lancamentoService.pesquisar(this.filtro)
       .then(resultado => {
-        this.totalRegistros = resultado.total;
+        this.totalRegistros = resultado.totalPages;
         this.lancamentos = resultado;
       })
       .catch(erro => this.error.handle(erro));
@@ -73,12 +73,6 @@ export class LancamentosPesquisaComponent implements OnInit {
       .catch(erro => this.error.handle(erro));
   }
 
-  editar(lancamento: any) {
-    this.showDelete();
-    this.lancamentoService.editar(lancamento)
-      .then(() => {
-      })
-  }
 
   showDelete() {
     this.msgService.add({ severity: 'error', summary: 'Excluído', detail: 'Item Excluído!' });

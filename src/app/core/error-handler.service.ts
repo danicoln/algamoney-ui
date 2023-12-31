@@ -8,7 +8,7 @@ import { Observable } from 'rxjs';
 })
 export class ErrorHandlerService {
 
-  constructor(private toastMessage: MessageService) { }
+  constructor(private message: MessageService) { }
 
   handle(errorResponse: any) {
     let msg: any;
@@ -36,6 +36,7 @@ export class ErrorHandlerService {
       console.error('Ocorreu um erro', errorResponse);
     }
 
-    this.toastMessage.add(msg);
+    this.message.add({severity: 'error', summary: 'Erro', detail: 'Infelizmente ocorreu um erro, verifique e tente novamente.'});
+
   }
 }

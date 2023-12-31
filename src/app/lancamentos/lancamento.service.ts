@@ -2,16 +2,26 @@ import { DatePipe } from '@angular/common';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable, OnInit } from '@angular/core';
 import { LancamentoFiltro } from './lancamentos-pesquisa/model/lancamentos-filtro';
+import { Lancamento } from '../core/model';
+import { firstValueFrom } from 'rxjs';
 
+export interface Page<T> {
+  content: T[];
+  totalElements: number;
+  totalPages: number;
+  size: number;
+  page: number;
+}
 
 @Injectable()
 export class LancamentoService {
+
 
   filtro = new LancamentoFiltro();
   datePipe?: DatePipe;
   url = 'http://localhost:8080/lancamentos';
 
-  chave: string = 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJhdXRoLWFwaSIsInN1YiI6ImFkbWluQGFsZ2Ftb25leS5jb20iLCJleHAiOjE3MDM5NTEzNjV9.-a5ZIHT5RE438H7T-KgoeqpO69KV5RSP7YYIHD25RUo';
+  chave: string = 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJhdXRoLWFwaSIsInN1YiI6ImFkbWluQGFsZ2Ftb25leS5jb20iLCJleHAiOjE3MDM5OTQzNDR9.kGNNmfj752ijCgFYPstwf5cS4gScL2TG0KUEuzfPk1U';
 
   constructor(private http: HttpClient, datePipe?: DatePipe) {
     this.datePipe = datePipe; // Foi necessário colocar o datePipe no construtor para que a implementação de data nos filtros funcionasse.
@@ -19,7 +29,7 @@ export class LancamentoService {
 
   }
 
-  pesquisar(filtro: LancamentoFiltro): Promise<any> {
+  pesquisar(filtro: LancamentoFiltro): Promise<Page<Lancamento>> {
     const headers = new HttpHeaders().set('Authorization', this.chave);
     let parametros = new HttpParams();
 
@@ -42,46 +52,27 @@ export class LancamentoService {
         this.datePipe?.transform(filtro.dataVencimentoFim.toUTCString(), 'yyyy-MM-dd')!);
     }
 
-    return this.http.get<any>(`${this.url}?resumo`,
-      { headers, params: parametros })
-      .toPromise()
-      .then((response: any) => {
-        const respJson = response;
-        const dadosLancamentos = respJson.content;
+    return firstValueFrom(this.http.get<Page<Lancamento>>(`${this.url}?resumo`,
+      { headers, params: parametros }));
 
-        const resultado = {
-          dadosLancamentos,
-          total: response.totalElements
-        }
-        return resultado;
-      });
   }
 
   excluir(codigo: number): Promise<void>{
 
     const headers = new HttpHeaders().set('Authorization', this.chave);
 
-    return this.http.delete(`${this.url}/${codigo}`,
-    {headers})
-    .toPromise()
-    .then(() => {});
-    /**
-     * o método then(() => {}) é utilizado para garantir
-     * que a Promise resultante tenha um valor de resolução,
-     * mesmo que seja undefined. Isso é feito para
-     * corresponder ao tipo de retorno Promise<void>.
-     */
+    return firstValueFrom(this.http.delete<void>(`${this.url}/${codigo}`,
+    {headers}));
+
   }
 
-  /**
-   *
-   */
-  editar(codigo: number): Promise<any>{
-    const headers = new HttpHeaders().set('Authorization', this.chave);
+  adicionar(lancamento: Lancamento): Promise<Lancamento> {
+    const headers = new HttpHeaders()
+    .append('Authorization', this.chave)
+    .append('Content-Type', 'application/json');
+    console.log('Dados do Lançamento: ', lancamento);
+    return firstValueFrom(this.http.post<Lancamento>(this.url,
+      lancamento, {headers}));
 
-    return this.http.post(`${this.url}/${codigo}`,
-    {headers})
-    .toPromise()
-    .then(() => {});
   }
 }
