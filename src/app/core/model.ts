@@ -17,8 +17,8 @@ export enum Tipo {
 export class Lancamento {
   codigo: number = 0;
   tipo: string = 'RECEITA';
-  dataVencimento = Date;
-  dataPagamento = Date;
+  dataVencimento?: Date;
+  dataPagamento?: Date;
   descricao: string = '';
   valor: number = 0;
   observacao: string = '';

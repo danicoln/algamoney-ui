@@ -45,8 +45,9 @@ import { ToastModule } from 'primeng/toast';
     InputNumberModule,
     InputMaskModule,
     HttpClientModule,
-    SharedModule,
-    ToastModule
+    ToastModule,
+    SharedModule
+
 
   ],
   exports: [
