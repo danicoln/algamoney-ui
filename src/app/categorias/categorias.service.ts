@@ -7,7 +7,7 @@ import { Injectable } from '@angular/core';
 export class CategoriaService {
 
   url = 'http://localhost:8080/categorias';
-  chave: string = 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJhdXRoLWFwaSIsInN1YiI6ImFkbWluQGFsZ2Ftb25leS5jb20iLCJleHAiOjE3MDQzMDA0OTN9.SbbPkUKWJWv7k3uBpW-8UHHAZ4npfmHFBh_d18ETXGA';
+  chave: string = 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJhdXRoLWFwaSIsInN1YiI6ImFkbWluQGFsZ2Ftb25leS5jb20iLCJleHAiOjE3MDQzMjM3MjJ9.uVkBGLq7dJ8Nw2YDK2IiluXWpJSh3mXFbdsHFOUDIJE';
 
   constructor(private http: HttpClient) { }
 
