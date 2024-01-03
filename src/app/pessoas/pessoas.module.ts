@@ -17,6 +17,7 @@ import { InputMaskModule } from 'primeng/inputmask';
 import {CheckboxModule} from 'primeng/checkbox';
 
 import { SharedModule } from 'src/app/shared/shared.module';
+import { RouterModule } from '@angular/router';
 
 
 
@@ -27,6 +28,7 @@ import { SharedModule } from 'src/app/shared/shared.module';
     PessoaCadastroComponent,
   ],
   imports: [
+    RouterModule,
     CommonModule,
     FormsModule,
     TableModule,

@@ -1,10 +1,11 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { PessoaService } from '../pessoas.service';
-import { MessageService } from 'primeng/api';
-import { ErrorHandlerService } from 'src/app/core/error-handler.service';
+import { ActivatedRoute } from '@angular/router';
 import { NgForm } from '@angular/forms';
+import { MessageService } from 'primeng/api';
+
+import { PessoaService } from '../pessoas.service';
+import { ErrorHandlerService } from 'src/app/core/error-handler.service';
 import { Pessoa } from 'src/app/core/model';
-import { Checkbox } from 'primeng/checkbox';
 
 @Component({
   selector: 'app-pessoa-cadastro',
@@ -20,13 +21,14 @@ export class PessoaCadastroComponent implements OnInit{
   constructor(
     private pessoaService: PessoaService,
     private mensagem: MessageService,
-    private error: ErrorHandlerService
+    private error: ErrorHandlerService,
+    private route: ActivatedRoute
     ){
 
   }
 
   ngOnInit(): void {
-
+    console.log(this.route.snapshot.params['codigo']);
   }
 
   salvar(pessoaForm: NgForm){

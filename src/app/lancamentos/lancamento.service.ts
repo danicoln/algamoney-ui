@@ -29,12 +29,11 @@ export class LancamentoService {
 
   }
 
-  pesquisar(filtro: LancamentoFiltro): Promise<Page<Lancamento>> {
+  pesquisar(filtro: LancamentoFiltro): Promise<any> {
     const headers = new HttpHeaders().set('Authorization', this.chave);
-    let parametros = new HttpParams();
-
-    parametros = parametros.set('page', filtro.pagina);
-    parametros = parametros.set('size', filtro.itensPorPagina);
+    let parametros = new HttpParams()
+      .set('page', filtro.pagina)
+      .set('size', filtro.itensPorPagina);
 
     if (filtro.descricao) {
       parametros = parametros.set('descricao', filtro.descricao);
@@ -51,9 +50,19 @@ export class LancamentoService {
         'dataVencimentoAte',
         this.datePipe?.transform(filtro.dataVencimentoFim.toUTCString(), 'yyyy-MM-dd')!);
     }
+    return this.http.get<any>(`${this.url}?resumo`,
+      { headers, params: parametros })
+      .toPromise()
+      .then((response: any) => {
+        const respJson = response;
+        const dadosLancamentos = respJson.content;
 
-    return firstValueFrom(this.http.get<Page<Lancamento>>(`${this.url}?resumo`,
-      { headers, params: parametros }));
+        const resultado = {
+          dadosLancamentos,
+          total: response.totalElements
+        }
+        return resultado;
+      });
 
   }
 

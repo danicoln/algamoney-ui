@@ -35,7 +35,7 @@ export class LancamentosPesquisaComponent implements OnInit {
 
     this.lancamentoService.pesquisar(this.filtro)
       .then(resultado => {
-        this.totalRegistros = resultado.totalPages;
+        this.totalRegistros = resultado.total;
         this.lancamentos = resultado;
       })
       .catch(erro => this.error.handle(erro));
