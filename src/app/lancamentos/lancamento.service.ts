@@ -21,12 +21,12 @@ export class LancamentoService {
   datePipe?: DatePipe;
   url = 'http://localhost:8080/lancamentos';
 
-  chave: string = 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJhdXRoLWFwaSIsInN1YiI6ImFkbWluQGFsZ2Ftb25leS5jb20iLCJleHAiOjE3MDQzMDA0OTN9.SbbPkUKWJWv7k3uBpW-8UHHAZ4npfmHFBh_d18ETXGA';
+  chave: string = 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJhdXRoLWFwaSIsInN1YiI6ImFkbWluQGFsZ2Ftb25leS5jb20iLCJleHAiOjE3MDQzMjM3MjJ9.uVkBGLq7dJ8Nw2YDK2IiluXWpJSh3mXFbdsHFOUDIJE';
 
   constructor(
     private http: HttpClient,
     datePipe?: DatePipe
-    ) {
+  ) {
     this.datePipe = datePipe; // Foi necessário colocar o datePipe no construtor para que a implementação de data nos filtros funcionasse.
     //cria um filtro padrão
 
@@ -71,66 +71,70 @@ export class LancamentoService {
 
   atualizar(lancamento: Lancamento): Promise<Lancamento> {
     const headers = new HttpHeaders()
-    .set('Authorization', this.chave)
-    .set('Content-Type', 'application/json');
+      .set('Authorization', this.chave)
+      .set('Content-Type', 'application/json');
 
     return this.http.put<Lancamento>(`${this.url}/${lancamento.codigo}`,
       lancamento, { headers })
       .toPromise()
       .then((response: Lancamento | undefined) => {
-        if(response){
+        if (response) {
           return response;
-        }else{
+        } else {
           throw new Error('Lançamento não encontrado');
         }
       });
   }
 
-  buscarPorCodigo(codigo: number): Promise<Lancamento>{
-    return this.http.get<Lancamento>(`${this.url}/${codigo}`)
-    .toPromise()
-    .then((response: Lancamento | undefined) => {
-      if(response){
-        return response;
-      }else{
-        throw new Error('Lançamento não encontrado');
-      }
-    })
-    .catch((error: any) =>{
-      console.error('Erro ao buscar lançamento por código: ', error);
-      throw error;
-    });
+  buscarPorCodigo(codigo: number): Promise<Lancamento> {
+    const headers = new HttpHeaders()
+      .set('Authorization', this.chave);
+
+    return this.http.get<Lancamento>(`${this.url}/${codigo}`,
+      { headers })
+      .toPromise()
+      .then((lancamento: any) => {
+        if (lancamento) {
+
+          lancamento.dataVencimento = this.formatarData(lancamento.dataVencimento);
+          lancamento.dataPagamento = this.formatarData(lancamento.dataPagamento);
+          return lancamento;
+
+        } else {
+          throw new Error('Lançamento não encontrado');
+        }
+      })
+      .catch((error: any) => {
+        console.error('Erro ao buscar lançamento por código: ', error);
+        throw error;
+      });
   }
 
-  excluir(codigo: number): Promise<void>{
+  excluir(codigo: number): Promise<void> {
 
     const headers = new HttpHeaders().set('Authorization', this.chave);
 
     return firstValueFrom(this.http.delete<void>(`${this.url}/${codigo}`,
-    {headers}));
+      { headers }));
 
   }
 
   adicionar(lancamento: Lancamento): Promise<Lancamento> {
     const headers = new HttpHeaders()
-    .append('Authorization', this.chave)
-    .append('Content-Type', 'application/json');
+      .append('Authorization', this.chave)
+      .append('Content-Type', 'application/json');
     console.log('Dados do Lançamento: ', lancamento);
     return firstValueFrom(this.http.post<Lancamento>(this.url,
-      lancamento, {headers}));
+      lancamento, { headers }));
 
   }
 
-  //este método foi transf para o cadastro de lancamento. Conferir...
-  private converterStringsParaDatas(lancamentos: Lancamento[]){
-    for(const lancamento of lancamentos){
-      let offset = new Date().getTimezoneOffset() * 60000;
-
-      lancamento.dataVencimento = new Date(new Date(lancamento.dataVencimento!).getTime() + offset);
-
-      if(lancamento.dataPagamento) {
-        lancamento.dataPagamento = new Date(new Date(lancamento.dataPagamento).getTime() + offset);
-      }
-    }
+ formatarData(data: any): Date | null {
+  if(data){
+    const partesData = data.split('/');
+    return new Date(parseInt(partesData[2]), parseInt(partesData[1]) - 1, parseInt(partesData[0]));
   }
+  return null;
+ }
+
 }

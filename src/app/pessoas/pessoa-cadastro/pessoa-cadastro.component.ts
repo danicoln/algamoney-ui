@@ -28,7 +28,6 @@ export class PessoaCadastroComponent implements OnInit{
   }
 
   ngOnInit(): void {
-    console.log(this.route.snapshot.params['codigo']);
   }
 
   salvar(pessoaForm: NgForm){

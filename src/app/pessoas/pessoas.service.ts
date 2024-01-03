@@ -13,7 +13,7 @@ export class PessoaFiltro {
 @Injectable()
 export class PessoaService {
 
-  chave: string = 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJhdXRoLWFwaSIsInN1YiI6ImFkbWluQGFsZ2Ftb25leS5jb20iLCJleHAiOjE3MDQzMDA0OTN9.SbbPkUKWJWv7k3uBpW-8UHHAZ4npfmHFBh_d18ETXGA';
+  chave: string = 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJhdXRoLWFwaSIsInN1YiI6ImFkbWluQGFsZ2Ftb25leS5jb20iLCJleHAiOjE3MDQzMjM3MjJ9.uVkBGLq7dJ8Nw2YDK2IiluXWpJSh3mXFbdsHFOUDIJE';
 
   filtro = new PessoaFiltro();
   datePipe?: DatePipe;
