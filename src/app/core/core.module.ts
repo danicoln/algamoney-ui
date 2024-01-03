@@ -12,6 +12,7 @@ import { LancamentoService } from '../lancamentos/lancamento.service';
 import { PessoaService } from '../pessoas/pessoas.service';
 import { CategoriaService } from '../categorias/categorias.service';
 import { FormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
 
 registerLocaleData(localePt);
 
@@ -20,6 +21,7 @@ registerLocaleData(localePt);
     NavbarComponent
   ],
   imports: [
+    RouterModule,
     CommonModule,
     ToastModule,
     ConfirmDialogModule,

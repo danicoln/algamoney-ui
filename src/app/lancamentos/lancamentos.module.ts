@@ -20,6 +20,7 @@ import { SharedModule } from 'src/app/shared/shared.module';
 import { LancamentoCadastroComponent } from './lancamento-cadastro/lancamento-cadastro.component';
 import { LancamentosPesquisaComponent } from './lancamentos-pesquisa/lancamentos-pesquisa.component';
 import { ToastModule } from 'primeng/toast';
+import { RouterModule } from '@angular/router';
 
 
 @NgModule({
@@ -30,6 +31,7 @@ import { ToastModule } from 'primeng/toast';
 
   ],
   imports: [
+    RouterModule,
     CommonModule,
     ButtonModule,
     FormsModule,
