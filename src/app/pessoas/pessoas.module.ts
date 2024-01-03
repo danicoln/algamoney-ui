@@ -14,6 +14,8 @@ import { SelectButtonModule } from 'primeng/selectbutton';
 import { DropdownModule } from 'primeng/dropdown';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { InputMaskModule } from 'primeng/inputmask';
+import {CheckboxModule} from 'primeng/checkbox';
+
 import { SharedModule } from 'src/app/shared/shared.module';
 
 
@@ -37,7 +39,8 @@ import { SharedModule } from 'src/app/shared/shared.module';
     DropdownModule,
     InputNumberModule,
     InputMaskModule,
-    SharedModule
+    SharedModule,
+    CheckboxModule
 
   ],
   exports: [

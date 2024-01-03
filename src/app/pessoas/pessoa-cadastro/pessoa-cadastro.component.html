@@ -1,6 +1,6 @@
 <div class="container">
 
-  <form #pessoaCadastroForm="ngForm">
+  <form #pessoaCadastroForm="ngForm" (ngSubmit)="salvar(pessoaCadastroForm)">
 
     <div class="grid">
       <div class="col-12">
@@ -11,56 +11,139 @@
         <label>Nome</label>
         <!--Os componentes do PrimeNG, na versão 14.0.0, não aceitam a validação required apenas com a codificação padrão HTML.
           É necessário utilizar a propriedade do próprio componente: [required]="true"-->
-        <input pInputText type="text" name="nomeVariavel" ngModel #nomeVariavel="ngModel" [required]="true" class="p-inputtext-sm" minlength="5" >
+        <input
+          pInputText
+          type="text"
+          name="nomeVariavel"
+          [(ngModel)]="pessoa.nome"
+          #nomeVariavel="ngModel"
+          [required]="true"
+          class="p-inputtext-sm"
+          minlength="3"
+          >
         <app-message [control]="nomeVariavel.control" error="required" text="Informe o nome"></app-message>
         <app-message [control]="nomeVariavel.control" error="minlength" text="Mínimo de {{ nomeVariavel.errors?.['minlength']?.requiredLength }} caracteres."></app-message>
       </div>
 
       <div class="col-9 p-fluid">
         <label>Logradouro</label>
-        <input pInputText type="text" name="logradouro" ngModel #logradouro="ngModel" [required]="true" class="p-inputtext-sm">
+        <input
+          pInputText
+          type="text"
+          name="logradouro"
+          [(ngModel)]="pessoa.endereco.logradouro"
+          #logradouro="ngModel"
+          [required]="true"
+          class="p-inputtext-sm"
+          >
         <app-message [control]="logradouro.control" error="required" text="Informe o logradouro"></app-message>
 
       </div>
 
       <div class="col-3 p-fluid">
         <label>Número</label>
-        <input pInputText type="text" name="numero" ngModel #numero="ngModel" [required]="true" class="p-inputtext-sm">
+        <input
+          pInputText
+          type="text"
+          name="numero"
+          [(ngModel)]="pessoa.endereco.numero"
+          #numero="ngModel"
+          [required]="true"
+          class="p-inputtext-sm"
+          >
         <app-message [control]="numero.control" error="required" text="Informe o número"></app-message>
       </div>
 
       <div class="col-4 p-fluid">
         <label>Complemento</label>
-        <input pInputText type="text" class="p-inputtext-sm">
+        <input
+          name="complemento"
+          pInputText
+          type="text"
+          class="p-inputtext-sm"
+          [(ngModel)]="pessoa.endereco.complemento"
+          >
       </div>
 
       <div class="col-4 p-fluid">
         <label>Bairro</label>
-        <input pInputText type="text" name="bairro" ngModel #bairro="ngModel" [required]="true" class="p-inputtext-sm">
+        <input
+          pInputText
+          type="text"
+          name="bairro"
+          [(ngModel)]="pessoa.endereco.bairro"
+          #bairro="ngModel"
+          [required]="true"
+          class="p-inputtext-sm"
+          >
         <app-message [control]="bairro.control" error="required" text="Informe o bairro"></app-message>
       </div>
 
       <div class="col-4 p-fluid">
         <label>Cep</label>
-        <p-inputMask mask="99.999-999" placeholder="00.000-000" name="cep" ngModel #cep="ngModel" [required]="true" class="p-inputtext-sm"></p-inputMask>
+        <p-inputMask
+          mask="99.999-999"
+          placeholder="00.000-000"
+          name="cep"
+          [(ngModel)]="pessoa.endereco.cep"
+          #cep="ngModel"
+          [required]="true"
+          class="p-inputtext-sm"
+          >
+        </p-inputMask>
         <app-message [control]="cep.control" error="required" text="Informe o CEP"></app-message>
       </div>
 
       <div class="col-6 p-fluid">
         <label>Cidade</label>
-        <input pInputText type="text" name="cidade" ngModel #cidade="ngModel" [required]="true" class="p-inputtext-sm">
+        <input
+          pInputText
+          type="text"
+          name="cidade"
+          [(ngModel)]="pessoa.endereco.cidade"
+          #cidade="ngModel"
+          [required]="true"
+          class="p-inputtext-sm"
+          >
         <app-message [control]="cidade.control" error="required" text="Informe a cidade"></app-message>
       </div>
 
       <div class="col-6 p-fluid">
         <label>Estado</label>
-        <input pInputText type="text" name="estado" ngModel #estado="ngModel" [required]="true" class="p-inputtext-sm">
+        <input
+          pInputText
+          type="text"
+          name="estado"
+          [(ngModel)]="pessoa.endereco.estado"
+          #estado="ngModel"
+          [required]="true"
+          class="p-inputtext-sm"
+          >
         <app-message [control]="estado.control" error="required" text="Informe o estado"></app-message>
+      </div>
+
+      <div class="col-6 p-fluid">
+        <p-checkbox
+          [binary]="true"
+          name="ativaPessoa"
+          #ativaPessoa="ngModel"
+          [(ngModel)]="pessoa.ativo"
+          [required]="ativo"
+          >
+        </p-checkbox>
+        <label> {{pessoa.ativo ? 'Ativa' : 'Inativa'}} </label>
+        <app-message
+          [control]="ativaPessoa.control"
+          error="required"
+          text="Marque a pessoa como ativa"
+          severity="error"
+          > <!--a mensagem de erro não está funcionando-->
+        </app-message>
       </div>
 
       <div class="col-12">
         <button pButton type="submit" label="Salvar"
-        [disabled]="!pessoaCadastroForm.valid"></button>
+        [disabled]="!pessoaCadastroForm.valid || !pessoa.ativo"></button>
         <button pButton type="button" label="Novo" class="p-button-info"></button>
         <a href="javascript:;"> Voltar para a pesquisa </a>
       </div>

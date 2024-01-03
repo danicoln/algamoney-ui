@@ -1,7 +1,19 @@
 
 export class Pessoa {
-  nome: string = '';
   codigo: number = 0;
+  nome: string = '';
+  ativo: boolean = false;
+  endereco: Endereco = new Endereco();
+}
+
+export class Endereco {
+  logradouro: string = '';
+  numero: string = '';
+  complemento: string = '';
+  bairro: string = '';
+  cep: string = '';
+  cidade: string = '';
+  estado: string = '';
 }
 
 export class Categoria {

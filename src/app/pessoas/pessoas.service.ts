@@ -1,6 +1,8 @@
 import { DatePipe } from '@angular/common';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable, OnInit } from '@angular/core';
+import { Pessoa } from '../core/model';
+import { firstValueFrom } from 'rxjs';
 
 export class PessoaFiltro {
   nome: string = '';
@@ -11,7 +13,7 @@ export class PessoaFiltro {
 @Injectable()
 export class PessoaService {
 
-  chave: string = 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJhdXRoLWFwaSIsInN1YiI6ImFkbWluQGFsZ2Ftb25leS5jb20iLCJleHAiOjE3MDM5OTQzNDR9.kGNNmfj752ijCgFYPstwf5cS4gScL2TG0KUEuzfPk1U';
+  chave: string = 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJhdXRoLWFwaSIsInN1YiI6ImFkbWluQGFsZ2Ftb25leS5jb20iLCJleHAiOjE3MDQyNTAyNDd9.6oytezgP-LOE7kXjVr7Ij_fwU-C9It-k5DPdjexIJ9U';
 
   filtro = new PessoaFiltro();
   datePipe?: DatePipe;
@@ -78,5 +80,13 @@ export class PessoaService {
       .then((response: any) => {
         return response
       });
+  }
+
+  adicionar(pessoa: Pessoa): Promise<Pessoa>{
+    const headers = new HttpHeaders()
+    .append('Authorization', this.chave)
+    .append('Content-Type', 'application/json');
+    console.log('[PessoaService]:Pessoa cadastrada: ', pessoa);
+    return firstValueFrom(this.http.post<Pessoa>(this.url, pessoa, {headers}));
   }
 }
