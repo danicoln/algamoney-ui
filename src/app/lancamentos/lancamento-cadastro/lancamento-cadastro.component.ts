@@ -75,4 +75,25 @@ export class LancamentoCadastroComponent implements OnInit {
       .catch(erro => this.error.handle(erro));
   }
 
+  /**De acordo com o desafio 18.6:
+   * Outra mudança a ser realizada é a localização do método.
+   * Como no modelo de Observables a requisição na classe de
+   * serviço fica mais resumida, sem o then presente no
+   * modelo de Promises, é necessário transferir o método
+   * para o componente de cadastro de lançamentos
+   * (lancamento-cadastro.component), onde será utilizado
+   * quando for realizado o subscribe da requisição.
+   */
+  private converterStringsParaDatas(lancamentos: Lancamento[]){
+    for(const lancamento of lancamentos){
+      let offset = new Date().getTimezoneOffset() * 60000;
+
+      lancamento.dataVencimento = new Date(new Date(lancamento.dataVencimento!).getTime() + offset);
+
+      if(lancamento.dataPagamento) {
+        lancamento.dataPagamento = new Date(new Date(lancamento.dataPagamento).getTime() + offset);
+      }
+    }
+  }
+
 }
