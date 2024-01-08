@@ -45,9 +45,6 @@ import { RouterModule } from '@angular/router';
     CheckboxModule
 
   ],
-  exports: [
-    PessoasPesquisaComponent,
-    PessoaCadastroComponent
-  ]
+  exports: []
 })
 export class PessoasModule { }

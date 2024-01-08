@@ -52,10 +52,7 @@ import { RouterModule } from '@angular/router';
 
 
   ],
-  exports: [
-    LancamentosPesquisaComponent,
-    LancamentoCadastroComponent,
-  ]
+  exports: []
 
 })
 export class LancamentosModule { }
