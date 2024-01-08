@@ -149,7 +149,15 @@
       <div class="col-12">
         <button pButton type="submit" label="Salvar"
         [disabled]="!lancForm.valid"></button>
-        <button pButton type="button" label="Novo" class="p-button-info" routerLink="/lancamentos/novo"></button>
+        <button
+          pButton
+          type="button"
+          label="Novo"
+          class="p-button-info"
+          routerLink="/lancamentos"
+          (click)="novo(lancForm)"
+          >
+        </button>
         <a routerLink="/lancamentos">Voltar para a pesquisa</a>
       </div>
     </div>
