@@ -21,54 +21,52 @@
         -->
       </div>
 
-
-      <app-date-picker
-        titulo="Vencimento"
-        [required]="true"
-        [(ngModel)]="lancamento.dataVencimento"
-        name="vencimento"
-        >
-      </app-date-picker>{{'Data: ' + lancamento.dataVencimento}}
-
-      <app-date-picker
-        titulo="{{tipoHtml.value === 'RECEITA' ? 'Recebimento' : 'Pagamento'}}"
-        [required]="true"
-        [(ngModel)]="lancamento.dataPagamento"
-        name="pagamento"
-        >
-      </app-date-picker>
       <!--
-        <div class="col-12 md-6 col-3 p-fluid">
-          <b>{{tipoHtml.value === 'RECEITA' ? 'Recebimento' : 'Pagamento' }}</b>
-          <p-calendar
-            dateFormat="dd/mm/yy"
-            [showIcon]="true"
-            name="name"
-            [required]="true"
-            [(ngModel)]="lancamento.dataPagamento"
-            #dataHtml="ngModel"
-            >
-          </p-calendar>
-          <app-message [control]="dataHtml.control" error="required" text="Insira uma data"></app-message>
+        <app-date-picker
+          titulo="Vencimento"
+          [required]="true"
+          [(ngModel)]="lancamento.dataVencimento"
+          name="vencimento"
+          >
+        </app-date-picker>{{'DT Venc: ' + lancamento.dataVencimento}}
 
-        </div>
+        <app-date-picker
+          titulo="{{tipoHtml.value === 'RECEITA' ? 'Recebimento' : 'Pagamento'}}"
+          [required]="true"
+          [(ngModel)]="lancamento.dataPagamento"
+          name="pagamento"
+          >
+        </app-date-picker>{{'DT Pgt: ' + lancamento.dataPagamento}}
+      -->
+      <div class="col-6 md:col-3 p-fluid">
+        <label>Vencimento</label>
+        <p-calendar
+          dataType="string"
+          dateFormat="dd/mm/yy"
+          [showIcon]="true"
+          [(ngModel)]="lancamento.dataVencimento"
+          name="dataVencimento"
+          #dataVencimentoHtml="ngModel"
+          >
+        </p-calendar>
+      </div>
 
+      <div class="col-6 md:col-3 p-fluid">
+        <label>{{tipoHtml.value === 'RECEITA' ? 'Recebimento' : 'Pagamento'}}</label>
+        <p-calendar
+          dataType="string"
+          dateFormat="dd/mm/yy"
+          [showIcon]="true"
+          [(ngModel)]="lancamento.dataPagamento"
+          name="dataPagamento"
+          #dataPagamentoHtml="ngModel"
+          >
+        </p-calendar>
+      </div>
+      <!--
 
       -->
-      <!--
 
-        <div class="col-6 md:col-3 p-fluid">
-          <label>{{tipoHtml.value === 'RECEITA' ? 'Recebimento' : 'Pagamento'}}</label>
-          <p-calendar
-            dateFormat="dd/mm/yy"
-            [showIcon]="true"
-            [(ngModel)]="lancamento.dataPagamento"
-            name="data"
-            #dataHtml="ngModel"
-            >
-          </p-calendar>
-        </div>
-      -->
 
       <div class="col-12 md:col-9 p-fluid">
         <label>Descrição</label>
@@ -81,10 +79,10 @@
           minlength="5"
           [(ngModel)]="lancamento.descricao"
           >
+          <app-message [control]="descricao.control" error="required"
+          text="Informe uma descrição"></app-message>
+          <app-message [control]="descricao.control" error="minlength" text="Mínimo de {{ descricao.errors?.['minlength']?.requiredLength }} caracteres."></app-message>
 <!--
-  <app-message [control]="descricao.control" error="required"
-  text="Informe uma descrição"></app-message>
-  <app-message [control]="descricao.control" error="minlength" text="Mínimo de {{ descricao.errors?.['minlength']?.requiredLength }} caracteres."></app-message>
         -->
 
       </div>
@@ -102,9 +100,9 @@
           [(ngModel)]="lancamento.valor"
           >
           </p-inputNumber>
+          <app-message [control]="valor.control" error="required" text="Insira um valor"></app-message>
     <!--
 
-      <app-message [control]="valor.control" error="required" text="Insira um valor"></app-message>
         -->
       </div>
 
@@ -120,8 +118,8 @@
           >
         </p-dropdown>
         <!--
-
           <app-message [control]="categoriaHtml.control" error="required" text="Insira um valor"></app-message>
+
         -->
       </div>
 
@@ -137,9 +135,9 @@
           [(ngModel)]="lancamento.pessoa.codigo"
           >
         </p-dropdown>
+        <app-message [control]="pessoaHtml.control" error="required" text="Insira uma pessoa"></app-message>
         <!--
 
-          <app-message [control]="pessoaHtml.control" error="required" text="Insira uma pessoa"></app-message>
         -->
       </div>
 

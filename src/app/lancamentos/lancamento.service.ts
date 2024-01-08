@@ -1,9 +1,10 @@
-import { DatePipe } from '@angular/common';
+import { DatePipe, formatDate } from '@angular/common';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable, OnInit } from '@angular/core';
 import { LancamentoFiltro } from './lancamentos-pesquisa/model/lancamentos-filtro';
+import { Observable, firstValueFrom } from 'rxjs';
 import { Lancamento } from '../core/model';
-import { firstValueFrom } from 'rxjs';
+import { format, isValid } from 'date-fns';
 
 export interface Page<T> {
   content: T[];
@@ -16,13 +17,11 @@ export interface Page<T> {
 @Injectable()
 export class LancamentoService {
 
-
   filtro = new LancamentoFiltro();
   datePipe?: DatePipe;
   url = 'http://localhost:8080/lancamentos';
 
-  chave: string = 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJhdXRoLWFwaSIsInN1YiI6ImFkbWluQGFsZ2Ftb25leS5jb20iLCJleHAiOjE3MDQzMjM3MjJ9.uVkBGLq7dJ8Nw2YDK2IiluXWpJSh3mXFbdsHFOUDIJE';
-
+  chave: string = 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJhdXRoLWFwaSIsInN1YiI6ImFkbWluQGFsZ2Ftb25leS5jb20iLCJleHAiOjE3MDQ3NDI4MzF9.l4Wd7eD6-5M6qs4eo6Bb4RG68aWqntvlh76LuJ_KMrw';
   constructor(
     private http: HttpClient,
     datePipe?: DatePipe
@@ -45,13 +44,13 @@ export class LancamentoService {
     if (filtro.dataVencimentoInicio) {
       parametros = parametros.set(
         'dataVencimentoDe',
-        this.datePipe?.transform(filtro.dataVencimentoInicio.toUTCString(), 'yyyy-MM-dd')!);
+        this.datePipe?.transform(filtro.dataVencimentoInicio, 'yyyy-MM-dd')!);
     }
 
     if (filtro.dataVencimentoFim) {
       parametros = parametros.set(
         'dataVencimentoAte',
-        this.datePipe?.transform(filtro.dataVencimentoFim.toUTCString(), 'yyyy-MM-dd')!);
+        this.datePipe?.transform(filtro.dataVencimentoFim, 'yyyy-MM-dd')!);
     }
     return this.http.get<any>(`${this.url}?resumo`,
       { headers, params: parametros })
@@ -62,53 +61,13 @@ export class LancamentoService {
 
         const resultado = {
           dadosLancamentos,
-          total: response.totalElements
-        }
+          total: response.totalElements,
+        };
         return resultado;
       });
 
   }
 
-  atualizar(lancamento: Lancamento): Promise<Lancamento> {
-    const headers = new HttpHeaders()
-      .set('Authorization', this.chave)
-      .set('Content-Type', 'application/json');
-
-    return this.http.put<Lancamento>(`${this.url}/${lancamento.codigo}`,
-      lancamento, { headers })
-      .toPromise()
-      .then((response: Lancamento | undefined) => {
-        if (response) {
-          return response;
-        } else {
-          throw new Error('Lançamento não encontrado');
-        }
-      });
-  }
-
-  buscarPorCodigo(codigo: number): Promise<Lancamento> {
-    const headers = new HttpHeaders()
-      .set('Authorization', this.chave);
-
-    return this.http.get<Lancamento>(`${this.url}/${codigo}`,
-      { headers })
-      .toPromise()
-      .then((lancamento: any) => {
-        if (lancamento) {
-
-          lancamento.dataVencimento = this.formatarData(lancamento.dataVencimento);
-          lancamento.dataPagamento = this.formatarData(lancamento.dataPagamento);
-          return lancamento;
-
-        } else {
-          throw new Error('Lançamento não encontrado');
-        }
-      })
-      .catch((error: any) => {
-        console.error('Erro ao buscar lançamento por código: ', error);
-        throw error;
-      });
-  }
 
   excluir(codigo: number): Promise<void> {
 
@@ -129,12 +88,104 @@ export class LancamentoService {
 
   }
 
- formatarData(data: any): Date | null {
-  if(data){
-    const partesData = data.split('/');
-    return new Date(parseInt(partesData[2]), parseInt(partesData[1]) - 1, parseInt(partesData[0]));
+  atualizar(lancamento: Lancamento): Promise<Lancamento> {
+    const headers = new HttpHeaders()
+      .set('Authorization', this.chave)
+      .set('Content-Type', 'application/json');
+
+      this.conversorDeData([lancamento]);
+
+    console.log('Dados antes da requisição HTTP: ', lancamento);
+    return firstValueFrom(this.http.put<Lancamento>(`${this.url}/${lancamento.codigo}`,
+      lancamento, { headers }));
   }
-  return null;
+
+  buscarPorCodigo(codigo: number): Promise<Lancamento> {
+    const headers = new HttpHeaders()
+      .set('Authorization', this.chave);
+
+    return this.http.get(`${this.url}/${codigo}`,
+      { headers })
+      .toPromise()
+      .then((response: any) => {
+        const lancamento = response as Lancamento;
+
+        this.conversorDeData([lancamento]);
+
+        return lancamento;
+      })
+      .catch((error: any) => {
+        console.error('Erro ao buscar lançamento por código: ', error);
+        throw error;
+      });
+  }
+
+  //Se os atributos forem do tipo Date
+  conversorDeData(lancamentos: Lancamento[]) {
+    for (const lancamento of lancamentos) {
+      if (lancamento.dataVencimento) {
+
+        if (isValid(lancamento.dataVencimento)) {
+          lancamento.dataVencimento = new Date(format(lancamento.dataVencimento, 'dd/MM/yyyy'));
+        } else {
+          console.error('Data inválida após a conversão.')
+        }
+
+      } else {
+        console.error('Data inválida ou indefinida.');
+      }
+      if (lancamento.dataPagamento) {
+
+        if (isValid(lancamento.dataPagamento)) {
+          lancamento.dataPagamento = new Date(format(lancamento.dataPagamento, 'dd/MM/yyyy'));
+        } else {
+          console.error('Data inválida após a conversão.')
+
+        }
+      } else {
+        console.error('Data inválida ou indefinida.');
+
+      }
+    }
+  }
+
+  /**
+
+   private converterStringsParaDatas(lancamentos: Lancamento[]) {
+
+     const dateFormadata = DateTimeFormatter.ofPattern('yyyy-MM-dd');
+
+     for (const lancamento of lancamentos) {
+       if(lancamento.dataVencimento !== undefined){
+         const localDataVencimento = LocalDate.parse(lancamento.dataVencimento, dateFormadata);
+         lancamento.dataVencimento = new Date(
+           localDataVencimento.year(),
+           localDataVencimento.monthValue() - 1,
+           localDataVencimento.dayOfMonth()).toString();
+       }
+
+       if (lancamento.dataPagamento !== undefined) {
+         const localDataPagamento = LocalDate.parse(lancamento.dataPagamento, dateFormadata);
+         lancamento.dataPagamento = new Date(
+           localDataPagamento.year(),
+           localDataPagamento.monthValue() - 1,
+           localDataPagamento.dayOfMonth()).toString();
+       }
+     }
+   }
+   *
+   *
+   *private converterStringsParaDatas(lancamentos: Lancamento[]) {
+   for (const lancamento of lancamentos) {
+     let offset = new Date().getTimezoneOffset() * 60000;
+
+     lancamento.dataVencimento = new Date(new Date(lancamento.dataVencimento!).getTime() + offset);
+
+     if (lancamento.dataPagamento) {
+       lancamento.dataPagamento = new Date(new Date(lancamento.dataPagamento).getTime() + offset);
+      }
+   }
  }
+   */
 
 }

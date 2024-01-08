@@ -7,6 +7,7 @@ import { Categoria, Lancamento, Pessoa } from 'src/app/core/model';
 import { PessoaService } from 'src/app/pessoas/pessoas.service';
 import { LancamentoService } from '../lancamento.service';
 import { MessageService } from 'primeng/api';
+import { DatePipe } from '@angular/common';
 
 
 
@@ -26,6 +27,7 @@ export class LancamentoCadastroComponent implements OnInit {
   pessoas: [] = [];
   categorias: [] = [];
   lancamento = new Lancamento();
+  formulario?: NgForm;
 
   constructor(
     private categoriaService: CategoriaService,
@@ -33,21 +35,46 @@ export class LancamentoCadastroComponent implements OnInit {
     private error: ErrorHandlerService,
     private lancamentoService: LancamentoService,
     private message: MessageService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private datePipe: DatePipe
   ) { }
 
   ngOnInit(): void {
     const codigoLancamento = this.route.snapshot.params['codigo'];
 
-    if(codigoLancamento){
-      this.carregarLancamento(codigoLancamento);
+    if(codigoLancamento){ // se tiver o codigo
+      this.carregarLancamento(codigoLancamento); //carregamos o lancamento passando o codigo
     }
 
     this.carregarCategorias();
     this.carregarPessoas();
   }
 
-  salvar(lancamentoForm: NgForm) {
+  salvar(form: NgForm){
+    if(this.editando){
+      this.atualizarLancamento(form);
+    }else{
+
+      this.adicionarLancamento(form);
+    }
+  }
+
+  atualizarLancamento(form:NgForm){
+    this.lancamentoService.atualizar(this.lancamento)
+    .then((lancamentoAtualizado: any) => {
+      this.lancamento = lancamentoAtualizado;
+
+      this.message.add({severity: 'success', summary: 'Sucesso', detail: 'Lançamento atualizado com sucesso!'});
+
+      form.reset();
+      return this.lancamento;
+    },
+    (erro: any) => {
+      this.error.handle(erro);
+    });
+  }
+
+  adicionarLancamento(lancamentoForm: NgForm) {
 
     this.lancamentoService.adicionar(this.lancamento)
     .then(() => {
@@ -64,7 +91,9 @@ export class LancamentoCadastroComponent implements OnInit {
   }
 
   get editando(){
-    return Boolean(this.lancamento.codigo)
+    //quando tiver um codigo no lancamento, quer dizer que estamos
+    //editando
+    return Boolean(this.lancamento.codigo);
   }
 
   carregarLancamento(codigo: number){
@@ -89,27 +118,6 @@ export class LancamentoCadastroComponent implements OnInit {
         this.pessoas = pessoa.content.map((p: Pessoa) => ({ label: p.nome, value: p.codigo }));
       })
       .catch(erro => this.error.handle(erro));
-  }
-
-  /**De acordo com o desafio 18.6:
-   * Outra mudança a ser realizada é a localização do método.
-   * Como no modelo de Observables a requisição na classe de
-   * serviço fica mais resumida, sem o then presente no
-   * modelo de Promises, é necessário transferir o método
-   * para o componente de cadastro de lançamentos
-   * (lancamento-cadastro.component), onde será utilizado
-   * quando for realizado o subscribe da requisição.
-   */
-  private converterStringsParaDatas(lancamentos: Lancamento[]){
-    for(const lancamento of lancamentos){
-      let offset = new Date().getTimezoneOffset() * 60000;
-
-      lancamento.dataVencimento = new Date(new Date(lancamento.dataVencimento!).getTime() + offset);
-
-      if(lancamento.dataPagamento) {
-        lancamento.dataPagamento = new Date(new Date(lancamento.dataPagamento).getTime() + offset);
-      }
-    }
   }
 
 }
