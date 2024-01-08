@@ -1,13 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { CategoriaService } from 'src/app/categorias/categorias.service';
 import { ErrorHandlerService } from 'src/app/core/error-handler.service';
 import { Categoria, Lancamento, Pessoa } from 'src/app/core/model';
 import { PessoaService } from 'src/app/pessoas/pessoas.service';
 import { LancamentoService } from '../lancamento.service';
 import { MessageService } from 'primeng/api';
-import { DatePipe } from '@angular/common';
 
 
 
@@ -36,13 +35,13 @@ export class LancamentoCadastroComponent implements OnInit {
     private lancamentoService: LancamentoService,
     private message: MessageService,
     private route: ActivatedRoute,
-    private datePipe: DatePipe
+    private router: Router
   ) { }
 
   ngOnInit(): void {
     const codigoLancamento = this.route.snapshot.params['codigo'];
 
-    if(codigoLancamento){ // se tiver o codigo
+    if (codigoLancamento) { // se tiver o codigo
       this.carregarLancamento(codigoLancamento); //carregamos o lancamento passando o codigo
     }
 
@@ -50,58 +49,55 @@ export class LancamentoCadastroComponent implements OnInit {
     this.carregarPessoas();
   }
 
-  salvar(form: NgForm){
-    if(this.editando){
+  salvar(form: NgForm) {
+    if (this.editando) {
       this.atualizarLancamento(form);
-    }else{
+    } else {
 
       this.adicionarLancamento(form);
     }
   }
 
-  atualizarLancamento(form:NgForm){
+  atualizarLancamento(form: NgForm) {
     this.lancamentoService.atualizar(this.lancamento)
-    .then((lancamentoAtualizado: any) => {
-      this.lancamento = lancamentoAtualizado;
+      .then((lancamentoAtualizado: any) => {
+        this.lancamento = lancamentoAtualizado;
 
-      this.message.add({severity: 'success', summary: 'Sucesso', detail: 'Lançamento atualizado com sucesso!'});
+        this.message.add({ severity: 'success', summary: 'Sucesso', detail: 'Lançamento atualizado com sucesso!' });
 
-      form.reset();
-      return this.lancamento;
-    },
-    (erro: any) => {
-      this.error.handle(erro);
-    });
+        form.reset();
+        return this.lancamento;
+      },
+        (erro: any) => {
+          this.error.handle(erro);
+        });
   }
 
   adicionarLancamento(lancamentoForm: NgForm) {
 
     this.lancamentoService.adicionar(this.lancamento)
-    .then(() => {
-      this.message.add({severity: 'success', summary: 'Sucesso', detail: 'Lançamento salvo com sucesso!'});
+      .then((lancamentoAdicionado) => {
+        this.message.add({ severity: 'success', summary: 'Sucesso', detail: 'Lançamento salvo com sucesso!' });
 
-      //precisamos resetar o formulário para ficar vazio.
-      lancamentoForm.reset();
+        //navegação imperativa
+        this.router.navigate(['/lancamentos', lancamentoAdicionado.codigo]);
 
-      //instanciamos um novo lancamento, pra ter um novo objeto para ficar vazio
-      this.lancamento = new Lancamento();
-
-    })
-    .catch(erro => this.error.handle(erro));
+      })
+      .catch(erro => this.error.handle(erro));
   }
 
-  get editando(){
+  get editando() {
     //quando tiver um codigo no lancamento, quer dizer que estamos
     //editando
     return Boolean(this.lancamento.codigo);
   }
 
-  carregarLancamento(codigo: number){
+  carregarLancamento(codigo: number) {
     this.lancamentoService.buscarPorCodigo(codigo)
-    .then(objetoLancamento => {
-      this.lancamento = objetoLancamento;
-    })
-    .catch(erro => this.error.handle(erro));
+      .then(objetoLancamento => {
+        this.lancamento = objetoLancamento;
+      })
+      .catch(erro => this.error.handle(erro));
   }
 
   carregarCategorias() {
@@ -118,6 +114,24 @@ export class LancamentoCadastroComponent implements OnInit {
         this.pessoas = pessoa.content.map((p: Pessoa) => ({ label: p.nome, value: p.codigo }));
       })
       .catch(erro => this.error.handle(erro));
+  }
+
+  novo(form: NgForm) {
+    form.reset();
+
+    /*Ao clicar em "novo", o form.reset setava
+    todos os campos do formulário como null,
+    fazendo com que o botão de receita não
+    estivesse selecionado mesmo inicializando um novo Lançamento.
+    Para contornar o problema de carregamento, implementamos
+    o setTimeout. */
+    setTimeout(() => {
+      this.lancamento = new Lancamento();
+
+    }, 1);
+
+    //Implementação de navegação imperativa
+    this.router.navigate(['/lancamentos/novo']);
   }
 
 }
