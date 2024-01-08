@@ -1,6 +1,5 @@
-import  localePt  from '@angular/common/locales/pt';
-import { LOCALE_ID, NgModule } from '@angular/core';
-import { CommonModule, DatePipe, registerLocaleData } from '@angular/common';
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
 import { HttpClientModule } from '@angular/common/http';
@@ -20,7 +19,7 @@ import { SharedModule } from 'src/app/shared/shared.module';
 import { LancamentoCadastroComponent } from './lancamento-cadastro/lancamento-cadastro.component';
 import { LancamentosPesquisaComponent } from './lancamentos-pesquisa/lancamentos-pesquisa.component';
 import { ToastModule } from 'primeng/toast';
-import { RouterModule } from '@angular/router';
+import { LancamentosRoutingModule } from './lancamentos-routing.module';
 
 
 @NgModule({
@@ -31,7 +30,6 @@ import { RouterModule } from '@angular/router';
 
   ],
   imports: [
-    RouterModule,
     CommonModule,
     ButtonModule,
     FormsModule,
@@ -48,8 +46,9 @@ import { RouterModule } from '@angular/router';
     InputMaskModule,
     HttpClientModule,
     ToastModule,
-    SharedModule
+    SharedModule,
 
+    LancamentosRoutingModule
 
   ],
   exports: []
