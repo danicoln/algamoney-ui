@@ -3,6 +3,7 @@ import { LancamentoService } from '../lancamento.service';
 import { LancamentoFiltro } from './model/lancamentos-filtro';
 import { ConfirmationService, LazyLoadEvent, MessageService } from 'primeng/api';
 import { ErrorHandlerService } from 'src/app/core/error-handler.service';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-lancamentos-pesquisa',
@@ -21,12 +22,13 @@ export class LancamentosPesquisaComponent implements OnInit {
     private lancamentoService: LancamentoService,
     private error: ErrorHandlerService,
     private msgService: MessageService,
-    private confirmation: ConfirmationService
+    private confirmation: ConfirmationService,
+    private title: Title
   ) { }
 
 
   ngOnInit() {
-    //this.pesquisar(); //Quando o componente Lazy é iniciado, o onLazyLoad é chamado automaticamente, não sendo necessário entao chamar o pesquisar() no ngOnInit()
+    this.title.setTitle('Pesquisa de Lançamentos');
   }
 
   pesquisar(pagina = 0) {
