@@ -13,12 +13,14 @@ import { PessoaService } from '../pessoas/pessoas.service';
 import { CategoriaService } from '../categorias/categorias.service';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
+import { PaginaNaoEncontradaComponent } from './pagina-nao-encontrada.component';
 
 registerLocaleData(localePt);
 
 @NgModule({
   declarations: [
-    NavbarComponent
+    NavbarComponent,
+    PaginaNaoEncontradaComponent
   ],
   imports: [
     RouterModule,
