@@ -14,6 +14,7 @@ import { CategoriaService } from '../categorias/categorias.service';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { PaginaNaoEncontradaComponent } from './pagina-nao-encontrada.component';
+import { Title } from '@angular/platform-browser';
 
 registerLocaleData(localePt);
 
@@ -42,6 +43,7 @@ registerLocaleData(localePt);
     PessoaService,
     MessageService,
     ConfirmationService,
+    Title,
     DatePipe,
     {provide: localePt, useValue: 'pt-BR'},
     CategoriaService

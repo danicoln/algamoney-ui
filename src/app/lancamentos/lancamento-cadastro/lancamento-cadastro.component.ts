@@ -7,6 +7,7 @@ import { Categoria, Lancamento, Pessoa } from 'src/app/core/model';
 import { PessoaService } from 'src/app/pessoas/pessoas.service';
 import { LancamentoService } from '../lancamento.service';
 import { MessageService } from 'primeng/api';
+import { Title } from '@angular/platform-browser';
 
 
 
@@ -35,10 +36,12 @@ export class LancamentoCadastroComponent implements OnInit {
     private lancamentoService: LancamentoService,
     private message: MessageService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private title: Title
   ) { }
 
   ngOnInit(): void {
+    this.title.setTitle("Novo lançamento");
     const codigoLancamento = this.route.snapshot.params['codigo'];
 
     if (codigoLancamento) { // se tiver o codigo
@@ -64,7 +67,7 @@ export class LancamentoCadastroComponent implements OnInit {
         this.lancamento = lancamentoAtualizado;
 
         this.message.add({ severity: 'success', summary: 'Sucesso', detail: 'Lançamento atualizado com sucesso!' });
-
+        this.atualizarTituloEdicao();
         form.reset();
         return this.lancamento;
       },
@@ -96,6 +99,7 @@ export class LancamentoCadastroComponent implements OnInit {
     this.lancamentoService.buscarPorCodigo(codigo)
       .then(objetoLancamento => {
         this.lancamento = objetoLancamento;
+        this.atualizarTituloEdicao();
       })
       .catch(erro => this.error.handle(erro));
   }
@@ -112,6 +116,7 @@ export class LancamentoCadastroComponent implements OnInit {
     return this.pessoasService.listarPessoas()
       .then((pessoa: any) => {
         this.pessoas = pessoa.content.map((p: Pessoa) => ({ label: p.nome, value: p.codigo }));
+        this.atualizarTituloEdicao();
       })
       .catch(erro => this.error.handle(erro));
   }
@@ -132,6 +137,10 @@ export class LancamentoCadastroComponent implements OnInit {
 
     //Implementação de navegação imperativa
     this.router.navigate(['/lancamentos/novo']);
+  }
+
+  atualizarTituloEdicao(){
+    this.title.setTitle(`Edição de lançamento: ${this.lancamento.descricao}`);
   }
 
 }
