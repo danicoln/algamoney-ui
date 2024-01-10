@@ -18,6 +18,7 @@ import {CheckboxModule} from 'primeng/checkbox';
 
 import { SharedModule } from 'src/app/shared/shared.module';
 import { RouterModule } from '@angular/router';
+import { PessoasRoutingModule } from './pessoas-routing.module';
 
 
 
@@ -42,7 +43,9 @@ import { RouterModule } from '@angular/router';
     InputNumberModule,
     InputMaskModule,
     SharedModule,
-    CheckboxModule
+    CheckboxModule,
+
+    PessoasRoutingModule
 
   ],
   exports: []
