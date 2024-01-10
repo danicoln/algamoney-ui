@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { PessoaFiltro, PessoaService } from '../pessoas.service';
 import { ConfirmationService, LazyLoadEvent, MessageService } from 'primeng/api';
 import { ErrorHandlerService } from 'src/app/core/error-handler.service';
+import { Pessoa } from 'src/app/core/model';
 
 @Component({
   selector: 'app-pessoas-pesquisa',
@@ -59,15 +60,15 @@ export class PessoasPesquisaComponent {
   }
 
 
-  excluir(pessoa: any) {
+  excluir(pessoa: Pessoa) {
 
     this.pessoaService.excluir(pessoa.codigo)
       .then(() => {
         this.grid.reset();
+        this.showDelete();
       })
       .catch(erro => this.error.handle(erro));
 
-    this.showDelete();
   }
 
   confirmarExclusao(pessoa: any) {
@@ -80,6 +81,6 @@ export class PessoasPesquisaComponent {
   }
 
   showDelete() {
-    this.msgService.add({ severity: 'error', summary: 'Excluído', detail: 'Item excluído com sucesso!' })
+    this.msgService.add({ severity: 'success', summary: 'Excluído', detail: 'Item excluído com sucesso!' })
   }
 }
